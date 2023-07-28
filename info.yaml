@@ -5,10 +5,10 @@ project:
 
 # If using an HDL, set wokwi_id as 0 and uncomment and list your source files here. 
 # Source files must be in ./src and you must list each source file separately
-source_files:
+  source_files:
     - tt_um_devinatkin_arduino_vga.v        
     - pwm_module.v
-top_module:  "tt_um_devinatkin_arduino_vga.v"      
+  top_module:  "tt_um_devinatkin_arduino_vga.v"      
 # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x2"    # Valid values: 1x1, 1x2, 2x2, 4x2 or 8x2
 
@@ -65,9 +65,9 @@ documentation:
     - none
 
 # The following fields are optional
-  tag:          ""      # comma separated list of tags: test, encryption, experiment, clock, animation, utility, industrial, pwm, fpga, alu, microprocessor, risc, riscv, sensor, signal generator, fft, filter, music, bcd, sound, serial, timer, random number generator, calculator, decoder, counter, puzzle, multiplier, game, oscillator,
+  tag:          "test"      # comma separated list of tags: test, encryption, experiment, clock, animation, utility, industrial, pwm, fpga, alu, microprocessor, risc, riscv, sensor, signal generator, fft, filter, music, bcd, sound, serial, timer, random number generator, calculator, decoder, counter, puzzle, multiplier, game, oscillator,
   external_hw:  ""      # Describe any external hardware needed
-  discord:      ""      # Your discord handle, used for communication and automatically assigning tapeout role after a submission
+  discord:      "devinatkin"      # Your discord handle, used for communication and automatically assigning tapeout role after a submission
   doc_link:     ""      # URL to longer form documentation, eg the README.md in your repository
-  clock_hz:     25MHz       # Clock frequency in Hz (if required)
+  clock_hz:     25000000       # Clock frequency in Hz (if required)
   picture:      ""      # relative path to a picture in your repository
