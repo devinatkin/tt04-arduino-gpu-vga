@@ -1,3 +1,6 @@
+`timescale 1ns/1ps
+
+
 module pwm_module
 #(parameter bit_width = 3)
 (

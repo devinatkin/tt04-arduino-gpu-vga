@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module tt_um_devinatkin_arduino_vga
 (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
