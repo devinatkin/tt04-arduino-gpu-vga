@@ -27,5 +27,13 @@ module tt_um_devinatkin_arduino_vga
         uo_out[5] = 0;
         uo_out[6] = 0;
         uo_out[7] = 0;
+        uio_oe[0] = 1;
+        uio_oe[1] = 1;
+        uio_oe[2] = 1;
+        uio_oe[3] = 1;
+        uio_oe[4] = 1;
+        uio_oe[5] = 1;
+        uio_oe[6] = 1;
+        uio_oe[7] = 1;
     end
 endmodule
