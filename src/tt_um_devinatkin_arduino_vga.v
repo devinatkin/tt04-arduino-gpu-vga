@@ -16,7 +16,7 @@ module tt_um_devinatkin_arduino_vga
         .rst_n(rst_n),
         .duty(ui_in),
         .max_value(uio_in),
-        .pwm_out(uo_out)
+        .pwm_out(uo_out[0])
     );
 
 endmodule
