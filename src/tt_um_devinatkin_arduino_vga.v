@@ -19,11 +19,13 @@ module tt_um_devinatkin_arduino_vga
         .pwm_out(uo_out[0])
     );
 
-    uo_out[1] = 0;
-    uo_out[2] = 0;
-    uo_out[3] = 0;
-    uo_out[4] = 0;
-    uo_out[5] = 0;
-    uo_out[6] = 0;
-    uo_out[7] = 0;
+    always @* begin
+        uo_out[1] = 0;
+        uo_out[2] = 0;
+        uo_out[3] = 0;
+        uo_out[4] = 0;
+        uo_out[5] = 0;
+        uo_out[6] = 0;
+        uo_out[7] = 0;
+    end
 endmodule
