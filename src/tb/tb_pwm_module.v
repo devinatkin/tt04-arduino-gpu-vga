@@ -1,7 +1,7 @@
 module tb_pwm_module;
 
   // Parameters
-  localparam bit_width = 3;
+  localparam bit_width = 8;
   localparam CLK_PERIOD = 10; // Time period of the clock (in simulation time units)
 
   // Inputs
@@ -10,7 +10,13 @@ module tb_pwm_module;
   logic [bit_width-1:0] duty;
 
   // Outputs
-  logic pwm_out;
+  wire pwm_out;
+
+  // Variables
+  integer i;
+  integer clk_cycles;
+  integer sum_pwm;
+  real avg_pwm;
 
   // Instantiate the DUT (Device Under Test)
   pwm_module #(
@@ -19,7 +25,7 @@ module tb_pwm_module;
     .clk(clk),
     .rst_n(rst_n),
     .duty(duty),
-    .max_value(3'h7),
+    .max_value(8'hFF), // Set maximum value to 2^32-1 (2^bit_width-
     .pwm_out(pwm_out)
   );
 
@@ -37,40 +43,23 @@ module tb_pwm_module;
 
   // Test cases
   initial begin
-    #100;     // Simulate for 100 time units
+    #100; // Simulate for 100 time units
 
     // Test with different duty cycle values
-    for (int i = 0; i <= (1<<bit_width); i++) begin
+    for (i = 0; i <= ((1<<bit_width)-1); i = i + 1) begin
       duty = i; // Apply duty cycle value
+      sum_pwm = 0;
+      clk_cycles = 0;
 
-      // Wait for a few clock cycles to observe the PWM output
-      #10;
-      // Display the output
-      $display("Duty: %0d, PWM Output: %b", duty, pwm_out);
-            // Wait for a few clock cycles to observe the PWM output
-      #10;
-      // Display the output
-      $display("Duty: %0d, PWM Output: %b", duty, pwm_out);
-            // Wait for a few clock cycles to observe the PWM output
-      #10;
-      // Display the output
-      $display("Duty: %0d, PWM Output: %b", duty, pwm_out);
-            // Wait for a few clock cycles to observe the PWM output
-      #10;
-      // Display the output
-      $display("Duty: %0d, PWM Output: %b", duty, pwm_out);
-            // Wait for a few clock cycles to observe the PWM output
-      #10;
-      // Display the output
-      $display("Duty: %0d, PWM Output: %b", duty, pwm_out);
-            // Wait for a few clock cycles to observe the PWM output
-      #10;
-      // Display the output
-      $display("Duty: %0d, PWM Output: %b", duty, pwm_out);
-    // Wait for a few clock cycles to observe the PWM output
-      #10;
-      // Display the output
-      $display("Duty: %0d, PWM Output: %b", duty, pwm_out);
+      // Run a few hundred clock cycles before incrementing the duty cycle
+      for (clk_cycles = 0; clk_cycles < 256; clk_cycles = clk_cycles + 1) begin
+        @(posedge clk);
+        sum_pwm = sum_pwm + pwm_out; // Accumulate pwm_out values
+      end
+
+      avg_pwm = real'(sum_pwm)/clk_cycles;
+      // Calculate the average duty cycle
+      $display("Duty: %0d, PWM_SUM: %0d, Average PWM Output: %0f", duty, sum_pwm, avg_pwm);
     end
 
     #50; // Allow some extra time before ending the simulation

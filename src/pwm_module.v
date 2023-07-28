@@ -3,8 +3,8 @@ module pwm_module
 (
 clk,        // 1-bit input: clock
 rst_n,      // 1-bit input: reset
-duty,       // 8-bit input: duty cycle
-max_value,  // 8-bit input: maximum value
+duty,       // bitwidth-bit input: duty cycle
+max_value,  // bitwidth-bit input: maximum value
 pwm_out     // 1-bit output: pwm output
 );
 input clk, rst_n;
@@ -21,13 +21,11 @@ begin
     if (~rst_n) begin
         counter <= 0;
         pwm_out <= 0;
-    end else if (counter == duty) begin
-        pwm_out <= 0;
-        counter <= counter + 1;
     end else if (counter == max_value) begin
         counter <= 0;
-        pwm_out <= 1;
     end else
         counter <= counter + 1;
+        pwm_out <= (counter <= duty);
+        
 end
 endmodule
