@@ -7,7 +7,7 @@ project:
 # Source files must be in ./src and you must list each source file separately
   source_files:
     - tt_um_devinatkin_arduino_vga.v
-    - vga_module.v
+    - vga_timing.v
     - pwm_module.v
   top_module:  "tt_um_devinatkin_arduino_vga"
 # How many tiles your design occupies? A single tile is about 167x108 uM.

@@ -50,7 +50,7 @@ module vga_timing_gen_tb;
         #CLK_PERIOD rst_n = 1'b1;
         
         // Run for a while to check behavior
-        #(CLK_PERIOD*20000) ;
+        #(CLK_PERIOD*40000) ;
         
         // End of the test
         $finish;
