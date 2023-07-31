@@ -72,7 +72,7 @@ module vga_timing_gen (
 
     // Assign sync signals
     assign hs = hs_pwm;
-    assign vs = vs_pwm;
+    assign vs = ~vs_pwm;
 
     // Determine if we're in the active video region
     assign active = (h_count >= (H_SYNC_CYCLES + H_BACK_PORCH)) &&
@@ -81,7 +81,7 @@ module vga_timing_gen (
                     (v_count < (V_SYNC_CYCLES + V_BACK_PORCH + V_ACTIVE));
 
     // Output current position
-    assign x = h_count - (H_SYNC_CYCLES + H_BACK_PORCH);
-    assign y = v_count - (V_SYNC_CYCLES + V_BACK_PORCH);
+    assign x = h_count;
+    assign y = v_count;
 
 endmodule

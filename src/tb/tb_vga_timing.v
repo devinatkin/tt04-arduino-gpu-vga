@@ -32,6 +32,11 @@ module vga_timing_gen_tb;
     
     // Test process
     initial begin
+
+        $dumpfile("vga_wave.vcd");      // create a VCD waveform dump called "wave.vcd"
+        $dumpvars(0, vga_timing_gen_tb); // dump variable changes in the testbench
+                                    // and all modules under it
+
         // Initialize signals
         clk = 1'b0;
         rst_n = 1'b0;
@@ -50,7 +55,7 @@ module vga_timing_gen_tb;
         #CLK_PERIOD rst_n = 1'b1;
         
         // Run for a while to check behavior
-        #(CLK_PERIOD*40000) ;
+        #(CLK_PERIOD*840000) ;
         
         // End of the test
         $finish;
