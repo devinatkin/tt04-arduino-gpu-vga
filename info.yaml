@@ -35,24 +35,24 @@ documentation:
 
 # A description of what the inputs do (e.g. red button, SPI CLK, SPI MOSI, etc).
   inputs:               
-    - none
-    - none
-    - none
-    - none
+    - SPI MOSI
+    - SPI MISO
+    - SPI CLK
+    - SPI CS
     - none
     - none
     - none
     - none
 # A description of what the outputs do (e.g. status LED, SPI MISO, etc)
   outputs:
-    - segment a
-    - segment b
-    - segment c
-    - segment d
-    - segment e
-    - segment f
-    - segment g
-    - dot
+    - VGA Red 0
+    - VGA Red 1
+    - VGA Green 0
+    - VGA Green 1
+    - VGA Blue 0
+    - VGA Blue 1
+    - VGA HSync
+    - VGA VSync
 # A description of what the bidirectional I/O pins do (e.g. I2C SDA, I2C SCL, etc)
   bidirectional:
     - none
@@ -69,5 +69,5 @@ documentation:
   external_hw:  ""      # Describe any external hardware needed
   discord:      "devinatkin"      # Your discord handle, used for communication and automatically assigning tapeout role after a submission
   doc_link:     ""      # URL to longer form documentation, eg the README.md in your repository
-  clock_hz:     25000000       # Clock frequency in Hz (if required)
+  clock_hz:     25175000       # Clock frequency in Hz (if required)
   picture:      ""      # relative path to a picture in your repository

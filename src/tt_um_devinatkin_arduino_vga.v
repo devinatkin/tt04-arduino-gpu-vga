@@ -11,17 +11,21 @@ module tt_um_devinatkin_arduino_vga
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
+    wire [9:0] x;
+    wire [8:0] y;
+    wire active;
 
-    // Instantiate the 8-bit PWM module
-    pwm_module #(8) pwm_inst (
-        .clk(clk),
-        .rst_n(rst_n),
-        .duty(ui_in),
-        .max_value(uio_in),
-        .pwm_out(uo_out[0])
+    vga_timing_gen vga_timing(
+    .clk(clk),    // System clock
+    .rst_n(rst_n),  // Active-low reset signal
+    .hs(uo_out[0]),    // Horizontal sync signal
+    .vs(uo_out[1]),    // Vertical sync signal
+    .x(x),    // Current x position (column)
+    .y(y),    // Current y position (row)
+    .active(active)  // Active video signal
     );
 
-    assign uo_out[1] = 0;
+    
     assign uo_out[2] = 0;
     assign uo_out[3] = 0;
     assign uo_out[4] = 0;
