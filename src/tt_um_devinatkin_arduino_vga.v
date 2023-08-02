@@ -20,7 +20,7 @@ module tt_um_devinatkin_arduino_vga
     wire [1:0] blue_pixel;
 
     wire [5:0] data_in;
-
+    assign data_in = 6'b000000;
     // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
