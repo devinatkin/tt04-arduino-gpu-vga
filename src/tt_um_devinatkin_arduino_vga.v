@@ -15,6 +15,13 @@ module tt_um_devinatkin_arduino_vga
     wire [8:0] y;
     wire active;
 
+    wire [1:0] red_pixel;
+    wire [1:0] green_pixel;
+    wire [1:0] blue_pixel;
+
+    wire [5:0] data_in;
+
+    // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
     .rst_n(rst_n),  // Active-low reset signal
@@ -25,19 +32,25 @@ module tt_um_devinatkin_arduino_vga
     .active(active)  // Active video signal
     );
 
+    // Instantiate rgb_active
     rgb_active output_control(
     .active(active),                  // Active video signal
-    .red_pixel(2'b01),         // red_pixel 2-bit input
-    .green_pixel(2'b10),       // green_pixel 2-bit input
-    .blue_pixel(2'b11),        // blue_pixel 2-bit input
-    .vga_out(uo_out[2:7])           // vga_out 6-bit output
-);
-    assign uo_out[2] = 0;
-    assign uo_out[3] = 0;
-    assign uo_out[4] = 0;
-    assign uo_out[5] = 0;
-    assign uo_out[6] = 0;
-    assign uo_out[7] = 0;
+    .red_pixel(red_pixel),         // red_pixel 2-bit input
+    .green_pixel(green_pixel),       // green_pixel 2-bit input
+    .blue_pixel(blue_pixel),        // blue_pixel 2-bit input
+    .vga_out(uo_out[7:2])           // vga_out 6-bit output
+    );
+
+    // Instantiate MemoryArray640x480
+    MemoryArray640x480 memory_array (
+        .clk(clk),
+        .rst_n(rst_n),
+        .addr(10'b0001110000),
+        .write_en(1'b0),
+        .data_in(data_in),
+        .data_out({red_pixel, green_pixel, blue_pixel})
+    );
+
     assign uio_oe[0] = 0;
     assign uio_oe[1] = 0;
     assign uio_oe[2] = 0;

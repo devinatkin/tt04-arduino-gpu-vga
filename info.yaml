@@ -10,6 +10,7 @@ project:
     - vga_timing.v
     - pwm_module.v
     - rgb_active.v
+    - frame.v
   top_module:  "tt_um_devinatkin_arduino_vga"
 # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x2"    # Valid values: 1x1, 1x2, 2x2, 4x2 or 8x2

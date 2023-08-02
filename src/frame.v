@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module MemoryArray640x480(
   input logic clk,       // Clock input
   input logic rst_n,     // Reset input (active low)
@@ -16,10 +18,10 @@ always@(posedge clk or negedge rst_n)
 begin
   if (!rst_n) // Asynchronous reset
   begin
-    // Reset the entire memory array to 0
+    // Reset the entire memory array to 0 and 1 in a checkerboard pattern
     for (int i = 0; i < 640; i++)
       for (int j = 0; j < 480; j++)
-        memory[i][j] <= 6'b0;
+        memory[i][j] <= (i ^ j) & 1 ? 6'b1 : 6'b0;
   end
   else // Synchronous read and write
   begin
