@@ -25,7 +25,13 @@ module tt_um_devinatkin_arduino_vga
     .active(active)  // Active video signal
     );
 
-    
+    rgb_active output_control(
+    .active(active),                  // Active video signal
+    .red_pixel(2'b01),         // red_pixel 2-bit input
+    .green_pixel(2'b10),       // green_pixel 2-bit input
+    .blue_pixel(2'b11),        // blue_pixel 2-bit input
+    .vga_out(uo_out[2:7])           // vga_out 6-bit output
+);
     assign uo_out[2] = 0;
     assign uo_out[3] = 0;
     assign uo_out[4] = 0;

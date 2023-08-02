@@ -9,6 +9,7 @@ project:
     - tt_um_devinatkin_arduino_vga.v
     - vga_timing.v
     - pwm_module.v
+    - rgb_active.v
   top_module:  "tt_um_devinatkin_arduino_vga"
 # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x2"    # Valid values: 1x1, 1x2, 2x2, 4x2 or 8x2
@@ -46,14 +47,14 @@ documentation:
     - none
 # A description of what the outputs do (e.g. status LED, SPI MISO, etc)
   outputs:
-    - VGA Red 0
-    - VGA Red 1
-    - VGA Green 0
-    - VGA Green 1
-    - VGA Blue 0
-    - VGA Blue 1
-    - VGA HSync
-    - VGA VSync
+    - VGA HSync   # uo_out[0]
+    - VGA VSync   # uo_out[1]
+    - VGA Red 0   # uo_out[2]
+    - VGA Red 1   # uo_out[3]
+    - VGA Green 0 # uo_out[4]
+    - VGA Green 1 # uo_out[5]
+    - VGA Blue 0  # uo_out[6]
+    - VGA Blue 1  # uo_out[7]
 # A description of what the bidirectional I/O pins do (e.g. I2C SDA, I2C SCL, etc)
   bidirectional:
     - none
