@@ -20,7 +20,7 @@ begin
   begin
     // Reset the entire memory array to 0 and 1 in a checkerboard pattern
     for (int i = 0; i < 3071; i++)
-        memory[i] <= 6'b010101;
+        memory[i] = 6'b010101;
   end
   else // Synchronous read and write
   begin

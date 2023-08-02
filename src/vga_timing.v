@@ -47,7 +47,7 @@ module vga_timing_gen (
         .pwm_out(vs_pwm)
     );
 
-    always @(posedge clk or negedge rst_n) begin
+    always @(posedge clk) begin
         if (!rst_n) begin
             // Reset counters on falling edge of rst_n
             h_count <= 0;
