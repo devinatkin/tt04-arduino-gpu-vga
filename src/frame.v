@@ -14,14 +14,14 @@ module MemoryArray640x480(
 logic [5:0] memory[0:639][0:479];
 
 // Sequential read and write operations are synchronized to the clock
-always@(posedge clk or negedge rst_n)
+always@(posedge clk)
 begin
-  if (!rst_n) // Asynchronous reset
+  if (~rst_n) // Asynchronous reset
   begin
     // Reset the entire memory array to 0 and 1 in a checkerboard pattern
     for (int i = 0; i < 640; i++)
       for (int j = 0; j < 480; j++)
-        memory[i][j] <= (i ^ j) & 1 ? 6'b1 : 6'b0;
+        memory[i][j] <= 6'b010101;
   end
   else // Synchronous read and write
   begin
