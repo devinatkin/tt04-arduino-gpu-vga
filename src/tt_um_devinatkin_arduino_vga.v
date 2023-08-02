@@ -42,10 +42,10 @@ module tt_um_devinatkin_arduino_vga
     );
 
     // Instantiate MemoryArray640x480
-    MemoryArray640x480 memory_array (
+    MemoryArray64x48 memory_array (
         .clk(clk),
         .rst_n(rst_n),
-        .addr(10'b0001110000),
+        .addr(12'b0001110000),
         .write_en(~active),
         .data_in(data_in),
         .data_out({red_pixel, green_pixel, blue_pixel})
