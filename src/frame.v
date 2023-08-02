@@ -11,7 +11,7 @@ module MemoryArray640x480(
 
 // Declare the memory array as a register array
 // The memory will have 640x480 elements, each being 6 bits wide
-logic [5:0] memory[0:639][0:479];
+logic [5:0] memory[0:255][0:255];
 
 // Sequential read and write operations are synchronized to the clock
 always@(posedge clk)
@@ -19,8 +19,8 @@ begin
   if (~rst_n) // Asynchronous reset
   begin
     // Reset the entire memory array to 0 and 1 in a checkerboard pattern
-    for (int i = 0; i < 640; i++)
-      for (int j = 0; j < 480; j++)
+    for (int i = 0; i < 256; i++)
+      for (int j = 0; j < 256; j++)
         memory[i][j] <= 6'b010101;
   end
   else // Synchronous read and write

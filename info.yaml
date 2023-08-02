@@ -38,14 +38,14 @@ documentation:
 
 # A description of what the inputs do (e.g. red button, SPI CLK, SPI MOSI, etc).
   inputs:               
-    - SPI MOSI
-    - SPI MISO
-    - SPI CLK
-    - SPI CS
-    - none
-    - none
-    - none
-    - none
+    - SPI MOSI  # ui_in[0]
+    - SPI MISO  # ui_in[1]
+    - SPI CLK   # ui_in[2]
+    - SPI CS    # ui_in[3]
+    - none      # ui_in[4]
+    - none      # ui_in[5]
+    - none      # ui_in[6]
+    - none      # ui_in[7]
 # A description of what the outputs do (e.g. status LED, SPI MISO, etc)
   outputs:
     - VGA HSync   # uo_out[0]
