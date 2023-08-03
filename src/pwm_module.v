@@ -8,14 +8,14 @@ clk,        // 1-bit input: clock
 rst_n,      // 1-bit input: reset
 duty,       // bitwidth-bit input: duty cycle
 max_value,  // bitwidth-bit input: maximum value
-pwm_out     // 1-bit output: pwm output
+pwm_out,     // 1-bit output: pwm output
+counter     // bitwidth-bit output: counter
 );
 input clk, rst_n;
 input [bit_width-1:0] duty;
 input [bit_width-1:0] max_value;
 output reg pwm_out;
-
-reg [bit_width-1:0] counter;
+output reg [bit_width-1:0] counter;
 
 // pwm output is high when counter is less than duty
 // otherwise, pwm output is low

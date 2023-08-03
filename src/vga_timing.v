@@ -24,8 +24,8 @@ module vga_timing_gen (
     localparam [9:0] V_TOTAL = V_SYNC_CYCLES + V_BACK_PORCH + V_ACTIVE + V_FRONT_PORCH;
 
     // Counters for current position
-    reg [9:0] h_count = 0;
-    reg [9:0] v_count = 0;
+    wire [9:0] h_count = 0;
+    wire [9:0] v_count = 0;
 
     wire hs_pwm, vs_pwm;
 
@@ -35,7 +35,8 @@ module vga_timing_gen (
         .rst_n(rst_n),
         .duty(H_SYNC_CYCLES),
         .max_value(H_TOTAL),
-        .pwm_out(hs_pwm)
+        .pwm_out(hs_pwm),
+        .counter(h_count)
     );
 
     pwm_module #(.bit_width(10))
@@ -44,31 +45,11 @@ module vga_timing_gen (
         .rst_n(rst_n),
         .duty(V_SYNC_CYCLES),
         .max_value(V_TOTAL),
-        .pwm_out(vs_pwm)
+        .pwm_out(vs_pwm),
+        .counter(v_count)
     );
 
-    always @(posedge clk) begin
-        if (!rst_n) begin
-            // Reset counters on falling edge of rst_n
-            h_count <= 0;
-            v_count <= 0;
-        end else begin
-            if (h_count == H_TOTAL - 1) begin
-                // If we've reached the end of a line, reset the horizontal counter and increment the vertical counter
-                h_count <= 0;
-                if (v_count == V_TOTAL - 1) begin
-                    // If we've also reached the end of the frame, reset the vertical counter
-                    v_count <= 0;
-                end else begin
-                    // Otherwise, just increment the vertical counter
-                    v_count <= v_count + 1;
-                end
-            end else begin
-                // If we haven't reached the end of a line, just increment the horizontal counter
-                h_count <= h_count + 1;
-            end
-        end
-    end
+
 
     // Assign sync signals
     assign hs = hs_pwm;
