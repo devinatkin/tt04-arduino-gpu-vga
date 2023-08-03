@@ -3,7 +3,7 @@
 module testbench;
     reg [9:0] x;
     reg [9:0] y;
-    wire [11:0] address;
+    wire [10:0] address;
 
     // Instantiate the module
     PixelBlockAddress u1 (.x(x), .y(y), .address(address));
@@ -25,7 +25,7 @@ module testbench;
     // Monitor for changes in address and print a message when it changes
     always @(address) begin
         #1; // Wait for 1 time unit to ensure the new address is stable
-        $display("At time %t, x = %d, y = %d, address = %h", $time, x, y, address);
+        $display("At time %t, x = %d, y = %d, address = %d", $time, x, y, address);
     end
 
 endmodule

@@ -8,86 +8,92 @@
 :vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
 :vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
 :vpi_module "C:\iverilog\lib\ivl\v2009.vpi";
-S_000001caf4d9dea0 .scope package, "$unit" "$unit" 2 1;
+S_00000259cb78dea0 .scope package, "$unit" "$unit" 2 1;
  .timescale 0 0;
-S_000001caf4d9e030 .scope module, "testbench" "testbench" 3 3;
+S_00000259cb78e030 .scope module, "testbench" "testbench" 3 3;
  .timescale -9 -12;
-v000001caf4e30820_0 .net "address", 15 0, v000001caf4d9a8b0_0;  1 drivers
-v000001caf4de3380_0 .var "x", 9 0;
-v000001caf4de2ac0_0 .var "y", 9 0;
-E_000001caf4d99b80 .event anyedge, v000001caf4d9a8b0_0;
-S_000001caf4db2b30 .scope module, "u1" "PixelBlockAddress" 3 9, 4 3 0, S_000001caf4d9e030;
+v00000259cb8908c0_0 .net "address", 10 0, v00000259cb812cc0_0;  1 drivers
+v00000259cb842cc0_0 .var "x", 9 0;
+v00000259cb8434e0_0 .var "y", 9 0;
+E_00000259cb78a1d0 .event anyedge, v00000259cb812cc0_0;
+S_00000259cb812b30 .scope module, "u1" "PixelBlockAddress" 3 9, 4 3 0, S_00000259cb78e030;
  .timescale -9 -12;
     .port_info 0 /INPUT 10 "x";
     .port_info 1 /INPUT 10 "y";
-    .port_info 2 /OUTPUT 16 "address";
-L_000001caf4e30d20 .functor BUFT 1, C4<0000>, C4<0>, C4<0>, C4<0>;
-v000001caf4d9e1c0_0 .net *"_ivl_10", 3 0, L_000001caf4e30d20;  1 drivers
-v000001caf4d9e260_0 .net *"_ivl_2", 5 0, L_000001caf4de36a0;  1 drivers
-L_000001caf4e30cd8 .functor BUFT 1, C4<0000>, C4<0>, C4<0>, C4<0>;
-v000001caf4dd9130_0 .net *"_ivl_4", 3 0, L_000001caf4e30cd8;  1 drivers
-v000001caf4d9a810_0 .net *"_ivl_8", 5 0, L_000001caf4de2c00;  1 drivers
-v000001caf4d9a8b0_0 .var "address", 15 0;
-v000001caf4db2cc0_0 .net "x", 9 0, v000001caf4de3380_0;  1 drivers
-v000001caf4db2d60_0 .net "x_block", 9 0, L_000001caf4de32e0;  1 drivers
-v000001caf4db2e00_0 .net "y", 9 0, v000001caf4de2ac0_0;  1 drivers
-v000001caf4db2ea0_0 .net "y_block", 9 0, L_000001caf4de28e0;  1 drivers
-E_000001caf4d99e00 .event anyedge, v000001caf4db2ea0_0, v000001caf4db2d60_0;
-L_000001caf4de36a0 .part v000001caf4de3380_0, 4, 6;
-L_000001caf4de32e0 .concat [ 6 4 0 0], L_000001caf4de36a0, L_000001caf4e30cd8;
-L_000001caf4de2c00 .part v000001caf4de2ac0_0, 4, 6;
-L_000001caf4de28e0 .concat [ 6 4 0 0], L_000001caf4de2c00, L_000001caf4e30d20;
-    .scope S_000001caf4db2b30;
+    .port_info 2 /OUTPUT 11 "address";
+L_00000259cb890dc0 .functor BUFT 1, C4<0000>, C4<0>, C4<0>, C4<0>;
+v00000259cb78a850_0 .net *"_ivl_10", 3 0, L_00000259cb890dc0;  1 drivers
+v00000259cb839010_0 .net *"_ivl_2", 5 0, L_00000259cb842900;  1 drivers
+L_00000259cb890d78 .functor BUFT 1, C4<0000>, C4<0>, C4<0>, C4<0>;
+v00000259cb78e1c0_0 .net *"_ivl_4", 3 0, L_00000259cb890d78;  1 drivers
+v00000259cb78e260_0 .net *"_ivl_8", 5 0, L_00000259cb8427c0;  1 drivers
+v00000259cb812cc0_0 .var "address", 10 0;
+v00000259cb812d60_0 .net "x", 9 0, v00000259cb842cc0_0;  1 drivers
+v00000259cb812e00_0 .net "x_block", 9 0, L_00000259cb842c20;  1 drivers
+v00000259cb812ea0_0 .net "y", 9 0, v00000259cb8434e0_0;  1 drivers
+v00000259cb890820_0 .net "y_block", 9 0, L_00000259cb842f40;  1 drivers
+E_00000259cb789e90 .event anyedge, v00000259cb890820_0, v00000259cb812e00_0;
+L_00000259cb842900 .part v00000259cb842cc0_0, 4, 6;
+L_00000259cb842c20 .concat [ 6 4 0 0], L_00000259cb842900, L_00000259cb890d78;
+L_00000259cb8427c0 .part v00000259cb8434e0_0, 4, 6;
+L_00000259cb842f40 .concat [ 6 4 0 0], L_00000259cb8427c0, L_00000259cb890dc0;
+    .scope S_00000259cb812b30;
 T_0 ;
-    %wait E_000001caf4d99e00;
-    %load/vec4 v000001caf4db2ea0_0;
-    %pad/u 16;
-    %ix/load 4, 6, 0;
+    %wait E_00000259cb789e90;
+    %load/vec4 v00000259cb890820_0;
+    %pad/u 11;
+    %ix/load 4, 5, 0;
     %flag_set/imm 4, 0;
     %shiftl 4;
-    %load/vec4 v000001caf4db2d60_0;
-    %pad/u 16;
+    %load/vec4 v00000259cb890820_0;
+    %pad/u 11;
+    %ix/load 4, 3, 0;
+    %flag_set/imm 4, 0;
+    %shiftl 4;
     %add;
-    %store/vec4 v000001caf4d9a8b0_0, 0, 16;
+    %load/vec4 v00000259cb812e00_0;
+    %pad/u 11;
+    %add;
+    %store/vec4 v00000259cb812cc0_0, 0, 11;
     %jmp T_0;
     .thread T_0, $push;
-    .scope S_000001caf4d9e030;
+    .scope S_00000259cb78e030;
 T_1 ;
     %vpi_call/w 3 12 "$dumpfile", "test.vcd" {0 0 0};
-    %vpi_call/w 3 13 "$dumpvars", 32'sb00000000000000000000000000000000, S_000001caf4d9e030 {0 0 0};
+    %vpi_call/w 3 13 "$dumpvars", 32'sb00000000000000000000000000000000, S_00000259cb78e030 {0 0 0};
     %pushi/vec4 0, 0, 10;
-    %store/vec4 v000001caf4de3380_0, 0, 10;
+    %store/vec4 v00000259cb842cc0_0, 0, 10;
 T_1.0 ;
-    %load/vec4 v000001caf4de3380_0;
+    %load/vec4 v00000259cb842cc0_0;
     %pad/u 32;
     %cmpi/u 640, 0, 32;
     %jmp/0xz T_1.1, 5;
     %pushi/vec4 0, 0, 10;
-    %store/vec4 v000001caf4de2ac0_0, 0, 10;
+    %store/vec4 v00000259cb8434e0_0, 0, 10;
 T_1.2 ;
-    %load/vec4 v000001caf4de2ac0_0;
+    %load/vec4 v00000259cb8434e0_0;
     %pad/u 32;
     %cmpi/u 480, 0, 32;
     %jmp/0xz T_1.3, 5;
     %delay 1000, 0;
-    %load/vec4 v000001caf4de2ac0_0;
+    %load/vec4 v00000259cb8434e0_0;
     %addi 1, 0, 10;
-    %store/vec4 v000001caf4de2ac0_0, 0, 10;
+    %store/vec4 v00000259cb8434e0_0, 0, 10;
     %jmp T_1.2;
 T_1.3 ;
-    %load/vec4 v000001caf4de3380_0;
+    %load/vec4 v00000259cb842cc0_0;
     %addi 1, 0, 10;
-    %store/vec4 v000001caf4de3380_0, 0, 10;
+    %store/vec4 v00000259cb842cc0_0, 0, 10;
     %jmp T_1.0;
 T_1.1 ;
     %vpi_call/w 3 22 "$finish" {0 0 0};
     %end;
     .thread T_1;
-    .scope S_000001caf4d9e030;
+    .scope S_00000259cb78e030;
 T_2 ;
-    %wait E_000001caf4d99b80;
+    %wait E_00000259cb78a1d0;
     %delay 1000, 0;
-    %vpi_call/w 3 28 "$display", "At time %t, x = %d, y = %d, address = %h", $time, v000001caf4de3380_0, v000001caf4de2ac0_0, v000001caf4e30820_0 {0 0 0};
+    %vpi_call/w 3 28 "$display", "At time %t, x = %d, y = %d, address = %d", $time, v00000259cb842cc0_0, v00000259cb8434e0_0, v00000259cb8908c0_0 {0 0 0};
     %jmp T_2;
     .thread T_2, $push;
 # The file index is used to find the file name in the following table.

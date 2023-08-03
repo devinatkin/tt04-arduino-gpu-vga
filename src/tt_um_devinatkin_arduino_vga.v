@@ -18,13 +18,13 @@ module tt_um_devinatkin_arduino_vga
     wire [9:0] ycoor;
 
     wire active;
-    wire [11:0] address;
+    wire [10:0] address;
     wire [1:0] red_pixel;
     wire [1:0] green_pixel;
     wire [1:0] blue_pixel;
 
-    wire [5:0] data_in;
-    assign data_in = 6'b000000;
+    wire [2:0] data_in;
+    assign data_in = 3'b000;
     // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
@@ -57,13 +57,13 @@ module tt_um_devinatkin_arduino_vga
     PixelBlockAddress pixel_address_calc (.x(xcoor), .y(ycoor), .address(address));
 
     // Instantiate MemoryArray640x480
-    MemoryArray64x48 memory_array (
+    MemoryArray40x30 memory_array (
         .clk(clk),
         .rst_n(rst_n),
         .addr(address),
         .write_en(~active),
         .data_in(data_in),
-        .data_out({red_pixel, green_pixel, blue_pixel})
+        .data_out({red_pixel[1], green_pixel[1], blue_pixel[1]})
     );
 
     assign uio_oe[0] = 0;
