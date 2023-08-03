@@ -12,9 +12,13 @@ module tt_um_devinatkin_arduino_vga
     input  wire       rst_n     // reset_n - low to reset
 );
     wire [9:0] x;
-    wire [8:0] y;
-    wire active;
+    wire [9:0] y;
 
+    wire [9:0] xcoor;
+    wire [9:0] ycoor;
+
+    wire active;
+    wire [11:0] address;
     wire [1:0] red_pixel;
     wire [1:0] green_pixel;
     wire [1:0] blue_pixel;
@@ -41,11 +45,22 @@ module tt_um_devinatkin_arduino_vga
     .vga_out(uo_out[7:2])           // vga_out 6-bit output
     );
 
+    VGA_Coord_Calc xy_calc (
+        .x(x),
+        .y(y),
+        .clk(clk),
+        .rst_n(rst_n),
+        .xcoor(xcoor),
+        .ycoor(ycoor)
+    );
+
+    PixelBlockAddress pixel_address_calc (.x(xcoor), .y(ycoor), .address(address));
+
     // Instantiate MemoryArray640x480
     MemoryArray64x48 memory_array (
         .clk(clk),
         .rst_n(rst_n),
-        .addr(12'b0001110000),
+        .addr(address),
         .write_en(~active),
         .data_in(data_in),
         .data_out({red_pixel, green_pixel, blue_pixel})

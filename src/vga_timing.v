@@ -6,7 +6,7 @@ module vga_timing_gen (
     output wire hs,    // Horizontal sync signal
     output wire vs,    // Vertical sync signal
     output wire [9:0] x,    // Current x position (column)
-    output wire [8:0] y,    // Current y position (row)
+    output wire [9:0] y,    // Current y position (row)
     output wire active  // Active video signal
 );
 
@@ -25,7 +25,7 @@ module vga_timing_gen (
 
     // Counters for current position
     reg [9:0] h_count = 0;
-    reg [8:0] v_count = 0;
+    reg [9:0] v_count = 0;
 
     wire hs_pwm, vs_pwm;
 
