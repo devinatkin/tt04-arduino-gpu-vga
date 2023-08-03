@@ -9,7 +9,7 @@ module VGA_Coord_Calc(
     output reg [9:0] ycoor
 );
 
-always @(posedge clk or negedge rst_n) begin
+always @(posedge clk) begin
     if (~rst_n) begin
         xcoor <= 0;
     end else if (x < 145 || x > 624) begin
@@ -19,7 +19,7 @@ always @(posedge clk or negedge rst_n) begin
     end
 end
 
-always @(posedge clk or negedge rst_n) begin
+always @(posedge clk) begin
     if (~rst_n) begin
         ycoor <= 0;
     end else if (y < 13 || y > 492) begin

@@ -15,7 +15,7 @@ input [bit_width-1:0] duty;
 input [bit_width-1:0] max_value;
 output reg pwm_out;
 
-reg [bit_width:0] counter;
+reg [bit_width-1:0] counter;
 
 // pwm output is high when counter is less than duty
 // otherwise, pwm output is low
