@@ -16,7 +16,7 @@ logic [1:0] memory[0:1199];
 // Sequential read and write operations are synchronized to the clock
 always@(posedge clk)
 begin
-  if (~rst_n) // Asynchronous reset
+  if (~rst_n) // Sync reset
   begin
     // Reset the entire memory array to 0 and 1 in a checkerboard pattern
     for (int i = 0; i < 1200; i++)

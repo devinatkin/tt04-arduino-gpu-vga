@@ -25,7 +25,9 @@ module tt_um_devinatkin_arduino_vga
 
     wire [1:0] data_in;
     wire [1:0] data_out;
-    assign data_in = 2'b01;
+    wire [11:0] rand_num;
+
+    assign data_in = rand_num[1:0];
     // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
@@ -65,6 +67,14 @@ module tt_um_devinatkin_arduino_vga
         .write_en(~active),
         .data_in(data_in),
         .data_out(data_out)
+    );
+
+    
+    // Instantiate the random number generator
+    rand_generator rand_generator_mod (
+        .clk(clk), 
+        .reset_n(reset_n), 
+        .rand_num(rand_num)
     );
 
     assign red_pixel = data_out[1:0];
