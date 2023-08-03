@@ -23,8 +23,9 @@ module tt_um_devinatkin_arduino_vga
     wire [1:0] green_pixel;
     wire [1:0] blue_pixel;
 
-    wire [2:0] data_in;
-    assign data_in = 3'b000;
+    wire [1:0] data_in;
+    wire [1:0] data_out;
+    assign data_in = 2'b01;
     // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
@@ -63,13 +64,13 @@ module tt_um_devinatkin_arduino_vga
         .addr(address),
         .write_en(~active),
         .data_in(data_in),
-        .data_out({red_pixel[1], green_pixel[1], blue_pixel[1]})
+        .data_out(data_out)
     );
 
-    assign red_pixel[0] = 0;
-    assign green_pixel[0] = 0;
-    assign blue_pixel[0] = 0;
-    
+    assign red_pixel = data_out[1:0];
+    assign green_pixel = data_out[1:0];
+    assign blue_pixel = data_out[1:0];
+
     assign uio_oe[0] = 0;
     assign uio_oe[1] = 0;
     assign uio_oe[2] = 0;
