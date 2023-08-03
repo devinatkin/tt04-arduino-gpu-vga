@@ -24,8 +24,8 @@ module vga_timing_gen (
     localparam [9:0] V_TOTAL = V_SYNC_CYCLES + V_BACK_PORCH + V_ACTIVE + V_FRONT_PORCH;
 
     // Counters for current position
-    wire [9:0] h_count = 0;
-    wire [9:0] v_count = 0;
+    wire [9:0] h_count;
+    wire [9:0] v_count;
 
     wire hs_pwm, vs_pwm;
 
