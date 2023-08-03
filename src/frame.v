@@ -3,7 +3,7 @@
 module MemoryArray40x30(
   input logic clk,       // Clock input
   input logic rst_n,     // Reset input (active low)
-  input logic [10:0] addr, // Address input (11 bits for 64x48 addressing)
+  input logic [10:0] addr, // Address input (11 bits)
   input logic write_en,  // Write enable input
   input logic [1:0] data_in, // Data input (6 bits for each element)
   output logic [1:0] data_out // Data output (6 bits for each element)
@@ -20,7 +20,7 @@ begin
   begin
     // Reset the entire memory array to 0 and 1 in a checkerboard pattern
     for (int i = 0; i < 1200; i++)
-        memory[i] = 3'b01;
+        memory[i] = 2'b01;
   end
   else // Synchronous read and write
   begin
