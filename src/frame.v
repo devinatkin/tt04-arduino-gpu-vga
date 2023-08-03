@@ -5,13 +5,13 @@ module MemoryArray64x48(
   input logic rst_n,     // Reset input (active low)
   input logic [11:0] addr, // Address input (11 bits for 64x48 addressing)
   input logic write_en,  // Write enable input
-  input logic [5:0] data_in, // Data input (6 bits for each element)
-  output logic [5:0] data_out // Data output (6 bits for each element)
+  input logic [2:0] data_in, // Data input (6 bits for each element)
+  output logic [2:0] data_out // Data output (6 bits for each element)
 );
 
 // Declare the memory array as a register array
 // The memory will have 640x480 elements, each being 6 bits wide
-logic [5:0] memory[0:3071];
+logic [2:0] memory[0:3071];
 
 // Sequential read and write operations are synchronized to the clock
 always@(posedge clk)
@@ -20,7 +20,7 @@ begin
   begin
     // Reset the entire memory array to 0 and 1 in a checkerboard pattern
     for (int i = 0; i < 3071; i++)
-        memory[i] = 6'b010101;
+        memory[i] = 3'b010;
   end
   else // Synchronous read and write
   begin
