@@ -66,6 +66,10 @@ module tt_um_devinatkin_arduino_vga
         .data_out({red_pixel[1], green_pixel[1], blue_pixel[1]})
     );
 
+    assign red_pixel[0] = 0;
+    assign green_pixel[0] = 0;
+    assign blue_pixel[0] = 0;
+    
     assign uio_oe[0] = 0;
     assign uio_oe[1] = 0;
     assign uio_oe[2] = 0;
