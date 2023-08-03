@@ -73,7 +73,7 @@ module tt_um_devinatkin_arduino_vga
     // Instantiate the random number generator
     rand_generator rand_generator_mod (
         .clk(clk), 
-        .reset_n(reset_n), 
+        .reset_n(rst_n), 
         .rand_num(rand_num)
     );
 
