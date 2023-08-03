@@ -19,8 +19,8 @@ begin
   if (~rst_n) // Asynchronous reset
   begin
     // Reset the entire memory array to 0 and 1 in a checkerboard pattern
-    for (int i = 0; i < 3071; i++)
-        memory[i] <= 3'b010;
+    for (int i = 0; i < 1200; i++)
+        memory[i] = 3'b010;
   end
   else // Synchronous read and write
   begin
