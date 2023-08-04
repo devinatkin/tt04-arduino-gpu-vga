@@ -8,3 +8,4 @@ src/__pycache__/
 src/results.xml
 src/user_config.tcl
 output.txt
+tb_sim

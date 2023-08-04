@@ -24,7 +24,7 @@ module tb ();
         input [1:0] green;
         input [1:0] blue;
         begin
-            $fwrite(outfile, "%d ns: %b %b %b %b %b\n", sim_time, hs, vs, red, green, blue);
+            $fwrite(outfile, "%0d ns: %b %b %b %b %b\n", sim_time, hs, vs, red, green, blue);
         end
     endtask
 
