@@ -23,11 +23,9 @@ module tt_um_devinatkin_arduino_vga
     wire [1:0] green_pixel;
     wire [1:0] blue_pixel;
 
-    wire [1:0] data_in;
-    wire [1:0] data_out;
+
     wire [11:0] rand_num;
 
-    assign data_in = rand_num[1:0];
     // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
@@ -58,17 +56,6 @@ module tt_um_devinatkin_arduino_vga
     );
 
     PixelBlockAddress pixel_address_calc (.x(xcoor), .y(ycoor), .address(address));
-
-    // Instantiate MemoryArray640x480
-    MemoryArray40x30 memory_array (
-        .clk(clk),
-        .rst_n(rst_n),
-        .addr(address),
-        .write_en(~active),
-        .data_in(data_in),
-        .data_out(data_out)
-    );
-
     
     // Instantiate the random number generator
     rand_generator rand_generator_mod (
@@ -77,9 +64,9 @@ module tt_um_devinatkin_arduino_vga
         .rand_num(rand_num)
     );
 
-    assign red_pixel = data_out[1:0];
-    assign green_pixel = data_out[1:0];
-    assign blue_pixel = data_out[1:0];
+    assign red_pixel = rand_num[1:0];
+    assign green_pixel = rand_num[3:2];
+    assign blue_pixel = rand_num[5:4];
 
     assign uio_oe[0] = 0;
     assign uio_oe[1] = 0;
