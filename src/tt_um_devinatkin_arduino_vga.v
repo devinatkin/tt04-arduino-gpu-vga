@@ -74,7 +74,19 @@ module tt_um_devinatkin_arduino_vga
         .out({red_pixel, green_pixel, blue_pixel})
     );
 
-    assign uio_oe[0] = 0;
+    // Instance of the SPI_Peripheral module
+    SPI_Peripheral peripher_module (
+        .clk(clk),
+        .rst_n(rst_n),
+        .ss(ui_in[2]),
+        .mosi(ui_in[0]),
+        .miso(uio_out[0]),
+        .sclk(ui_in[1])
+    );
+
+    // uio_in[0] corresponds to miso, which is the output of the SPI module
+    assign uio_oe[0] = 1;
+
     assign uio_oe[1] = 0;
     assign uio_oe[2] = 0;
     assign uio_oe[3] = 0;

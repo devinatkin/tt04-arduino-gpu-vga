@@ -15,6 +15,7 @@ project:
     - frame.v
     - rand_generator.v
     - pixel_mux.v
+    - spi_peripheral.v
   top_module:  "tt_um_devinatkin_arduino_vga"
 # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x2"    # Valid values: 1x1, 1x2, 2x2, 4x2 or 8x2
@@ -64,7 +65,7 @@ documentation:
     - VGA Blue 1  # uo_out[7]
 # A description of what the bidirectional I/O pins do (e.g. I2C SDA, I2C SCL, etc)
   bidirectional:
-    - SPI MISO  # uio_in[0]
+    - SPI MISO  # uio_out[0]
     - none
     - none
     - none
@@ -75,8 +76,8 @@ documentation:
 
 # The following fields are optional
   tag:          "test"      # comma separated list of tags: test, encryption, experiment, clock, animation, utility, industrial, pwm, fpga, alu, microprocessor, risc, riscv, sensor, signal generator, fft, filter, music, bcd, sound, serial, timer, random number generator, calculator, decoder, counter, puzzle, multiplier, game, oscillator,
-  external_hw:  ""      # Describe any external hardware needed
+  external_hw:  "You're going to need to hook up a VGA output to the chip alongside the clock, to control it you'll need some form of microcontroller"      # Describe any external hardware needed
   discord:      "devinatkin"      # Your discord handle, used for communication and automatically assigning tapeout role after a submission
   doc_link:     ""      # URL to longer form documentation, eg the README.md in your repository
   clock_hz:     25175000       # Clock frequency in Hz (if required)
-  picture:      ""      # relative path to a picture in your repository
+  picture:      "DALLE_GEN_ProjectLogo.png"      # relative path to a picture in your repository
