@@ -82,4 +82,24 @@ module tb ();
         $fclose(outfile);
     end
 
+    reg [7:0] data_in = 8'h12; // Test data
+    reg [7:0] data_out;
+
+    wire ss; // ui_in[2]
+    wire mosi; // ui_in[0]
+    wire miso; // uio_out[0]
+    wire sclk; // ui_in[1]
+
+    initial begin
+        // wait for 100 ns
+        #100;
+        // enable the module
+        ena = 1;
+        // wait for 1 second
+        #1e8;
+        // disable the module
+        ena = 0;
+    end
+
+
 endmodule

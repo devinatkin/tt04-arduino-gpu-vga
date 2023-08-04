@@ -94,7 +94,7 @@ module tt_um_devinatkin_arduino_vga
     assign uio_oe[5] = 0;
     assign uio_oe[6] = 0;
     assign uio_oe[7] = 0;
-    assign uio_out[0] = 0;
+    
     assign uio_out[1] = 0;
     assign uio_out[2] = 0;
     assign uio_out[3] = 0;
