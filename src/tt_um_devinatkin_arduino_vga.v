@@ -64,9 +64,15 @@ module tt_um_devinatkin_arduino_vga
         .rand_num(rand_num)
     );
 
-    assign red_pixel = rand_num[1:0];
-    assign green_pixel = rand_num[3:2];
-    assign blue_pixel = rand_num[5:4];
+        // Instantiate the pixel_mux module
+    pixel_mux pixel_multiplexer (
+        .input0(rand_num[5:0]), 
+        .input1(6'b110000), 
+        .input2(6'b001100), 
+        .input3(6'b000011), 
+        .select(ui_in[7:6]), 
+        .out({red_pixel, green_pixel, blue_pixel})
+    );
 
     assign uio_oe[0] = 0;
     assign uio_oe[1] = 0;

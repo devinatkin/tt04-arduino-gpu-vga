@@ -48,6 +48,12 @@ module tb ();
     wire [7:0] uio_out;
     wire [7:0] uio_oe;
 
+    integer counter = 0;  // Add a counter
+    always @(posedge clk) begin
+        counter = counter + 1;  // Increment counter every clock cycle
+        ui_in[7:6] = (counter / 100) % 4;  // Drive ui_in[7:6] based on counter, reset every 100 clock cycles and cycle from 0 to 3
+    end
+
     // call the write_to_file task whenever uo_out changes
     always @(posedge clk) begin
         write_to_file($realtime, uo_out[0], uo_out[1], uo_out[3:2], uo_out[5:4], uo_out[7:6]);
