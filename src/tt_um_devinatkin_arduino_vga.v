@@ -23,7 +23,8 @@ module tt_um_devinatkin_arduino_vga
     wire [1:0] green_pixel;
     wire [1:0] blue_pixel;
 
-
+    reg [31:0] configuration;
+    wire [7:0] revieved_data;
     wire [11:0] rand_num;
 
     // Instantiate vga_timing_gen
@@ -81,12 +82,24 @@ module tt_um_devinatkin_arduino_vga
         .ss(ui_in[2]),
         .mosi(ui_in[0]),
         .miso(uio_out[0]),
-        .sclk(ui_in[1])
+        .sclk(ui_in[1]),
+        .config_data(configuration),        // Data to be used by the device
+        .recieved_data(revieved_data)        // Data recieved from the device
     );
+
+    always @(posedge clk) begin
+        if (~rst_n) begin
+            configuration <= 32'b0;
+        end else begin
+            if (ena) begin
+                configuration <= received_data;
+            end
+        end
+    end
 
     // uio_in[0] corresponds to miso, which is the output of the SPI module
     assign uio_oe[0] = 1;
-
+    
     assign uio_oe[1] = 0;
     assign uio_oe[2] = 0;
     assign uio_oe[3] = 0;

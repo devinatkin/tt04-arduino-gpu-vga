@@ -12,7 +12,6 @@ project:
     - rgb_active.v
     - vga_coord_calc.v
     - pixelblockaddress.v
-    - frame.v
     - rand_generator.v
     - pixel_mux.v
     - spi_peripheral.v
