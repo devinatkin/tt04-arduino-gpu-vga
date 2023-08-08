@@ -68,10 +68,10 @@ module tt_um_devinatkin_arduino_vga
         // Instantiate the pixel_mux module
     pixel_mux pixel_multiplexer (
         .input0(rand_num[5:0]), 
-        .input1(6'b110000), 
+        .input1(configuration[29:24]), 
         .input2(6'b001100), 
         .input3(6'b000011), 
-        .select(ui_in[7:6]), 
+        .select(configuration[31:30]), 
         .out({red_pixel, green_pixel, blue_pixel})
     );
 
