@@ -48,7 +48,7 @@ module SPI_Peripheral
           data_reg <= 8'h00;
           // Set the Data Out register to the selected value
           if ({data_reg[6:0], mosi} == 8'b10001111) begin // If the data is 0x8F (10001111 in binary, the test data) then send 0xAA (10101010 in binary, the test response)
-            $display("Data is 0x8F, sending 0xAA");
+            //$display("Data is 0x8F, sending 0xAA");
             data_out <= 8'b10101010;
           end else begin // Otherwise, set data_out based on the data register
             // If data_reg[7] is 1, then set the data out based on data_reg[6:5]
