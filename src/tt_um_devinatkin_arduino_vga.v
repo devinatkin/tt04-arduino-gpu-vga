@@ -58,6 +58,16 @@ module tt_um_devinatkin_arduino_vga
 
     PixelBlockAddress pixel_address_calc (.x(xcoor), .y(ycoor), .address(address));
     
+    char_memory character_memory (
+        .clock(clk),
+        .rst_n(rst_n),
+        .write(1'b0),
+        .x(x[1:0]),
+        .y(y[2:0]),
+        .data_in(1'b0),
+        .data_out(red_pixel[0])
+    );
+
     // Instantiate the random number generator
     rand_generator rand_generator_mod (
         .clk(clk), 
