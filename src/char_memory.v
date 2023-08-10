@@ -10,9 +10,8 @@ module char_memory (
     output reg data_out
 );
     // Parameter to set the rst_n memory values for each bit
-    parameter [19:0] RESET_VALUE = {
-        4'b1010, 4'b0101, 4'b1010, 4'b1010, 4'b0101
-    };
+    parameter [19:0] RESET_VALUE = 20'b10100101101010100101;
+
 
     // 4x5 memory array, 1-bit wide
     reg [4:0][3:0] memory;
