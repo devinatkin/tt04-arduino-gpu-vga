@@ -26,7 +26,7 @@ module tt_um_devinatkin_arduino_vga
     reg [31:0] configuration;
     wire [7:0] received_data;
     wire [11:0] rand_num;
-
+    wire char_memory_out;
     // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
@@ -65,7 +65,7 @@ module tt_um_devinatkin_arduino_vga
         .x(x[1:0]),
         .y(y[2:0]),
         .data_in(1'b0),
-        .data_out(red_pixel[0])
+        .data_out(char_memory_out)
     );
 
     // Instantiate the random number generator
@@ -79,7 +79,7 @@ module tt_um_devinatkin_arduino_vga
     pixel_mux pixel_multiplexer (
         .input0(rand_num[5:0]), 
         .input1(configuration[29:24]), 
-        .input2(6'b001100), 
+        .input2(char_memory_out), 
         .input3(6'b000011), 
         .select(configuration[31:30]), 
         .out({red_pixel, green_pixel, blue_pixel})

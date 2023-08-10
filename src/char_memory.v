@@ -43,8 +43,8 @@ module char_memory (
     always @(posedge clock) begin
         if (!rst_n) begin
             integer i;
-            for (i = 0; i < 5; i = i + 1) begin
-                memory[i] <= RESET_VALUE[i*4 +: 4]; // Extract 4-bit chunks from RESET_VALUE
+            for (i = 0; i < 20; i = i + 1) begin
+                memory[i] <= RESET_VALUE[i]; // Extract 1-bit from the reset value
             end
         end else if (write) begin
             case (y)
