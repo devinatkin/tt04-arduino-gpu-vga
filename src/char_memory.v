@@ -14,7 +14,7 @@ module char_memory (
 
 
     // 4x5 memory array, 1-bit wide
-    reg [4:0][3:0] memory;
+    reg [19:0] memory;
 
     // Intermediary signal to hold the data read from the memory
     wire [3:0] row_data;
@@ -22,11 +22,11 @@ module char_memory (
     // Instantiate the 5_1 mux to select the row
     mux_5_1 row_select (
         .sel(y),
-        .in0(memory[0]),
-        .in1(memory[1]),
-        .in2(memory[2]),
-        .in3(memory[3]),
-        .in4(memory[4]),
+        .in0(memory[3:0]),
+        .in1(memory[7:4]),
+        .in2(memory[11:8]),
+        .in3(memory[15:12]),
+        .in4(memory[19:16]),
         .out(row_data)
     );
     // Instantiate the 4_1 mux to select the column
@@ -48,11 +48,11 @@ module char_memory (
             end
         end else if (write) begin
             case (y)
-                3'b000: memory[0][x] <= data_in;
-                3'b001: memory[1][x] <= data_in;
-                3'b010: memory[2][x] <= data_in;
-                3'b011: memory[3][x] <= data_in;
-                3'b100: memory[4][x] <= data_in;
+                3'b000: memory[0+x] <= data_in;
+                3'b001: memory[4+x] <= data_in;
+                3'b010: memory[8+x] <= data_in;
+                3'b011: memory[12+x] <= data_in;
+                3'b100: memory[16+x] <= data_in;
                 default: ; // Handle other cases if needed
             endcase
         end
