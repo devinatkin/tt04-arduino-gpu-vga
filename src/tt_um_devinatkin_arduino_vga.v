@@ -73,7 +73,7 @@ module tt_um_devinatkin_arduino_vga
     char_row character_row (
         .char_in(6'b000000),
         .xcoor(xcoor),
-        .ycoor(ycoor),
+        .ycoor(ycoor[8:0]),
         .write(1'b0),
         .char_out(char_select),
         .clk(clk),
