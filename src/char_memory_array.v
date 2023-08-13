@@ -11,7 +11,7 @@ module char_memory_array (
 );
 
     // Custom reset values for 36 instances
-parameter [19:0] RESET_VALUES [35:0] = '{
+parameter [719:0] RESET_VALUES = {
     20'b00000111010101110101, // A
     20'b11101110101111101110, // B
     20'b11011000100010001101, // C
@@ -64,7 +64,7 @@ parameter [19:0] RESET_VALUES [35:0] = '{
                 .data_in(data_in),
                 .data_out(data_out[i]) // Output from each instance to respective bit in data_out
             );
-            defparam char_memory_instance.RESET_VALUE = RESET_VALUES[i];
+            defparam char_memory_instance.RESET_VALUE = RESET_VALUES[((i*20)+19):((i*20))]; // Assigning reset values
         end
     endgenerate
 

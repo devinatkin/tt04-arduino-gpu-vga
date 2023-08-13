@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module tb_char_memory_array;
     reg clock;
     reg rst_n;
@@ -6,7 +8,7 @@ module tb_char_memory_array;
     reg [2:0] y;
     reg data_in;
     wire [35:0] data_out;
-
+    integer i;
     char_memory_array uut (
         .clock(clock),
         .rst_n(rst_n),
@@ -39,7 +41,7 @@ module tb_char_memory_array;
         #10;
 
         // Read operations from memory after reset for all 36 instances
-        integer i;
+        
         for(i = 0; i < 36; i = i + 1) begin
             y = i/3; // Dividing by 3 to get y value
             x = i%3; // Modulus operation to get x value

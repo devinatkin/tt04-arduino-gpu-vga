@@ -26,7 +26,7 @@ module tt_um_devinatkin_arduino_vga
     reg [31:0] configuration;
     wire [7:0] received_data;
     wire [11:0] rand_num;
-    wire char_memory_out;
+    wire [35:0] char_memory_out;
     // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
@@ -58,13 +58,13 @@ module tt_um_devinatkin_arduino_vga
 
     PixelBlockAddress pixel_address_calc (.x(xcoor), .y(ycoor), .address(address));
     
-    char_memory character_memory (
+    char_memory_array character_memory_array(
         .clock(clk),
         .rst_n(rst_n),
         .write(1'b0),
-        .x(x[1:0]),
-        .y(y[2:0]),
-        .data_in(1'b0),
+        .x([1:0]),
+        .y([2:0]),
+        .data_in(configuration[0]),
         .data_out(char_memory_out)
     );
 
@@ -79,7 +79,7 @@ module tt_um_devinatkin_arduino_vga
     pixel_mux pixel_multiplexer (
         .input0(rand_num[5:0]), 
         .input1(configuration[29:24]), 
-        .input2(configuration[23:18] & {6{char_memory_out}}), 
+        .input2(configuration[23:18] & {6{char_memory_out[5]}}), 
         .input3(6'b000011), 
         .select(configuration[31:30]), 
         .out({red_pixel, green_pixel, blue_pixel})
