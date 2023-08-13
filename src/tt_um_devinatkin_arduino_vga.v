@@ -62,8 +62,8 @@ module tt_um_devinatkin_arduino_vga
         .clock(clk),
         .rst_n(rst_n),
         .write(1'b0),
-        .x([1:0]),
-        .y([2:0]),
+        .x(xcoor[1:0]),
+        .y(ycoor[2:0]),
         .data_in(configuration[0]),
         .data_out(char_memory_out)
     );
