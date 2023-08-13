@@ -20,6 +20,7 @@ project:
     - mux_5_1.v
     - char_memory_array.v
     - mux_36_1.v
+    - char_row.v
   top_module:  "tt_um_devinatkin_arduino_vga"
 # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"    # Valid values: 1x1, 1x2, 2x2, 4x2 or 8x2

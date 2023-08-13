@@ -28,6 +28,7 @@ module tt_um_devinatkin_arduino_vga
     wire [11:0] rand_num;
     wire [35:0] char_memory_out;
     wire character_out;
+    wire [5:0] char_select;
     // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
@@ -69,9 +70,19 @@ module tt_um_devinatkin_arduino_vga
         .data_out(char_memory_out)
     );
 
+    char_row character_row (
+        .char_in(6'b000000),
+        .xcoor(xcoor),
+        .ycoor(ycoor),
+        .write(1'b0),
+        .char_out(char_select),
+        .clk(clk),
+        .rst_n(rst_n)
+    );
+
     mux_36_1 character_mux (
         .d(char_memory_out),
-        .sel(6'b000101),
+        .sel(char_select),
         .y(character_out)
     );
 
