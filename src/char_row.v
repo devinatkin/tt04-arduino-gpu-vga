@@ -11,12 +11,13 @@ module char_row (
 );
     parameter y_start = 100;
     parameter y_end = y_start + 10;
-
+    parameter x_start = 100;
+    parameter x_end = x_start + 64*4;
     //characters are 8 pixels wide and 10 pixels tall
 
     reg [5:0] memory_array [0:69]; // Memory array
     
-    reg [7:0] address;               // Address for memory array
+    reg [5:0] address;               // Address for memory array
     always @(posedge clk) begin
         if(~rst_n) begin
             char_out <= 0;
@@ -85,18 +86,16 @@ module char_row (
             memory_array[61] <= 6'b011001;
             memory_array[62] <= 6'b011010;
             memory_array[63] <= 6'b011011;
-            memory_array[64] <= 6'b011100;
-            memory_array[65] <= 6'b011101;
-            memory_array[66] <= 6'b011110;
-            memory_array[67] <= 6'b011111;
-            memory_array[68] <= 6'b100000;
-            memory_array[69] <= 6'b100001;
         end else if (write) begin
             memory_array[address] <= char_in;
         end else begin
-            address <= xcoor >> 3; //divide by 8 to get the address of the character
-            if(ycoor >= y_start && ycoor <= y_end) begin
-                char_out <= memory_array[address];
+            if(xcoor >= x_start && xcoor <= x_end) begin
+                address <= (xcoor - xstart)<<2;
+                if(ycoor >= y_start && ycoor <= y_end) begin
+                    char_out <= memory_array[address];
+                end else begin
+                    char_out <= 6'b111111;
+                end
             end else begin
                 char_out <= 6'b111111;
             end
