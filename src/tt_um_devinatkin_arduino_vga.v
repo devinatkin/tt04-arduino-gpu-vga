@@ -63,10 +63,10 @@ module tt_um_devinatkin_arduino_vga
     char_memory_array character_memory_array(
         .clock(clk),
         .rst_n(rst_n),
-        .write(1'b0),
+        .write(configuration[22]),
         .x(xcoor[1:0]),
         .y(ycoor[2:0]),
-        .data_in(configuration[0]),
+        .data_in(configuration[23]),
         .data_out(char_memory_out)
     );
 
