@@ -14,7 +14,7 @@ parameter SCREEN_HEIGHT = 480;
 
 // Ball speed and direction
 reg [9:0] ball_x, ball_y;
-reg [9:0] ball_dx, ball_dy;
+reg [4:0] ball_dx, ball_dy;
 
 // Paddle position and size
 reg [8:0] paddle_y;
@@ -46,7 +46,7 @@ always @(posedge clk) begin
             ball_dx <= -ball_dx;
         end
 
-        
+
         pixel <= (x >= ball_x - 5 && x <= ball_x + 5 && y >= ball_y - 5 && y <= ball_y + 5);
     end
 end
