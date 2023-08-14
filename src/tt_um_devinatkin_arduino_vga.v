@@ -118,7 +118,7 @@ module tt_um_devinatkin_arduino_vga
 
     always @(posedge clk) begin
         if (~rst_n) begin
-            configuration <= 32'b1011_1111_1111_1100_0000_0000_0000_0000;
+            configuration <= 32'b1011_1011_1111_1100_0000_0000_0000_0000;
         end else begin
             if (ena) begin
                 configuration <= received_data;
