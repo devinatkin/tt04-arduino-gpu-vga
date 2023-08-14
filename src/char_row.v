@@ -90,7 +90,7 @@ module char_row (
             memory_array[address] <= char_in;
         end else begin
             if(xcoor >= x_start && xcoor <= x_end) begin
-                address <= (xcoor - xstart)<<2;
+                address <= (xcoor - x_start)<<2;
                 if(ycoor >= y_start && ycoor <= y_end) begin
                     char_out <= memory_array[address];
                 end else begin
