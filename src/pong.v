@@ -47,6 +47,7 @@ always @(posedge clk) begin
         end
 
         
+        pixel <= (x >= ball_x - 5 && x <= ball_x + 5 && y >= ball_y - 5 && y <= ball_y + 5);
     end
 end
 
