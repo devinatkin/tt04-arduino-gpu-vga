@@ -71,10 +71,10 @@ module tt_um_devinatkin_arduino_vga
     );
 
     char_row character_row (
-        .char_in(6'b000000),
+        .char_in(configuration[20:15]), // character which will be written to that particular point in memory when configuration[21] is high
         .xcoor(xcoor),
         .ycoor(ycoor[8:0]),
-        .write(1'b0),
+        .write(configuration[21]), // character row will be written to when configuration[21] is high
         .char_out(char_select),
         .clk(clk),
         .rst_n(rst_n)
