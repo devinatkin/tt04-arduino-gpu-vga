@@ -29,6 +29,12 @@ module tt_um_devinatkin_arduino_vga
     wire [35:0] char_memory_out;
     wire character_out;
     wire [5:0] char_select;
+
+    wire pong_pixel;
+
+    reg btn_up;
+    reg btn_down;
+
     // Instantiate vga_timing_gen
     vga_timing_gen vga_timing(
     .clk(clk),    // System clock
@@ -94,12 +100,25 @@ module tt_um_devinatkin_arduino_vga
         .rand_num(rand_num)
     );
 
+
+
+    // Instantiate the pong module
+    pong pong1 (
+        .clk(clk),
+        .rst_n(rst_n),
+        .btn_up(ui_in[4]),
+        .btn_down(ui_in[5]),
+        .x(xcoor),
+        .y(ycoor[8:0]),
+        .pixel(pong_pixel)
+    );
+
         // Instantiate the pixel_mux module
     pixel_mux pixel_multiplexer (
         .input0(rand_num[5:0]), 
         .input1(configuration[29:24]), 
         .input2(configuration[29:24] & {6{character_out}}), 
-        .input3(6'b000011), 
+        .input3(configuration[29:24] & {6{pong_pixel}}), 
         .select(configuration[31:30]), 
         .out({red_pixel, green_pixel, blue_pixel})
     );

@@ -11,13 +11,13 @@ module char_row (
 );
     parameter y_start = 100;
     parameter y_end = y_start + 10;
-    parameter x_start = 100;
+    parameter x_start = 0;
     parameter x_end = x_start + 64*4;
     //characters are 8 pixels wide and 10 pixels tall
 
     reg [5:0] memory_array [0:69]; // Memory array
     
-    reg [5:0] address;               // Address for memory array
+    reg [9:0] address;               // Address for memory array
     always @(posedge clk) begin
         if(~rst_n) begin
             char_out <= 0;
@@ -90,9 +90,9 @@ module char_row (
             memory_array[address] <= char_in;
         end else begin
             if(xcoor >= x_start && xcoor <= x_end) begin
-                address <= (xcoor - x_start)<<2;
+                address <= xcoor - x_start;
                 if(ycoor >= y_start && ycoor <= y_end) begin
-                    char_out <= memory_array[address];
+                    char_out <= memory_array[((address)/4)];
                 end else begin
                     char_out <= 6'b111111;
                 end
