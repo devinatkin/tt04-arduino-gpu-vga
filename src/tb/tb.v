@@ -140,7 +140,7 @@ module tb ();
             $display("Test passed. Received data is correct.");
         else
             $display("Test failed. Received data: %h, Expected data: %h", data_out, data_in);
-            $finish;
+
     
     end
 

@@ -98,7 +98,7 @@ module tt_um_devinatkin_arduino_vga
     pixel_mux pixel_multiplexer (
         .input0(rand_num[5:0]), 
         .input1(configuration[29:24]), 
-        .input2(configuration[23:18] & {6{character_out}}), 
+        .input2(configuration[29:24] & {6{character_out}}), 
         .input3(6'b000011), 
         .select(configuration[31:30]), 
         .out({red_pixel, green_pixel, blue_pixel})
@@ -118,7 +118,7 @@ module tt_um_devinatkin_arduino_vga
 
     always @(posedge clk) begin
         if (~rst_n) begin
-            configuration <= 32'b1000_0000_1111_1100_0000_0000_0000_0000;
+            configuration <= 32'b1011_1111_1111_1100_0000_0000_0000_0000;
         end else begin
             if (ena) begin
                 configuration <= received_data;
