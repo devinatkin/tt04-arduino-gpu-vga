@@ -14,7 +14,7 @@ parameter SCREEN_HEIGHT = 480;
 
 // Ball speed and direction
 reg [9:0] ball_x, ball_y;
-reg [4:0] ball_dx, ball_dy;
+reg [2:0] ball_dx, ball_dy;
 
 // Paddle position and size
 reg [8:0] paddle_y;
