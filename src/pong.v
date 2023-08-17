@@ -47,7 +47,7 @@ always @(posedge clk) begin
         end
 
 
-        pixel <= (x >= ball_x - 5 && x <= ball_x + 5 && y >= ball_y - 5 && y <= ball_y + 5) | (X >= 20 && X <= 30 && Y >= paddle_y && Y <= paddle_y + PADDLE_HEIGHT);
+        pixel <= (x >= ball_x - 5 && x <= ball_x + 5 && y >= ball_y - 5 && y <= ball_y + 5) | (x >= 20 && x <= 30 && y >= paddle_y && y <= paddle_y + PADDLE_HEIGHT);
     end
 end
 
