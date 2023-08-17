@@ -3,16 +3,16 @@
 module vga_timing_gen_tb;
     
     // Parameters
-    localparam CLK_PERIOD = 40; // 100 MHz clock for this test
+    localparam CLK_PERIOD = 39.721946375372; // 25.175 MHz clock for this test
     
     // Signals
-    reg clk;
-    reg rst_n;
-    wire hs;
-    wire vs;
-    wire [9:0] x;
-    wire [9:0] y;
-    wire active;
+    reg clk;            // System clock
+    reg rst_n;          // Active-low reset signal
+    wire hs;            // Horizontal sync signal
+    wire vs;            // Vertical sync signal
+    wire [9:0] x;       // Current x position (column)
+    wire [9:0] y;       // Current y position (row)
+    wire active;        // Active video signal
 
     // Instantiate the DUT
     vga_timing_gen DUT (
@@ -27,9 +27,20 @@ module vga_timing_gen_tb;
     
     // Clock generation
     always begin
-        #CLK_PERIOD clk = ~clk;
+        #(CLK_PERIOD/2) clk = ~clk;
     end
     
+    // Pulse width monitoring
+    integer hpulse_start_time;
+    integer vpulse_start_time;
+    integer hsync_pulse_width;
+    integer vsync_pulse_width;
+
+    integer last_hsync_time = 0;
+    integer last_vsync_time = 0;
+    integer hsync_period = 0;
+    integer vsync_period=0;
+
     // Test process
     initial begin
 
@@ -47,23 +58,35 @@ module vga_timing_gen_tb;
         
         // Run for a while to check behavior
         #(CLK_PERIOD*20000) ;
-        
-        // Assert reset again
-        #CLK_PERIOD rst_n = 1'b0;
-        
-        // Deassert reset
-        #CLK_PERIOD rst_n = 1'b1;
-        
         // Run for a while to check behavior
-        #(CLK_PERIOD*840000) ;
-        
+        #(CLK_PERIOD*940000) ;
+        #(CLK_PERIOD*940000) ;
+        #(CLK_PERIOD*940000) ;
         // End of the test
         $finish;
     end
     
-    // Monitor process for tracking the signals
-    initial begin
-        $monitor("At time %t, x=%d, y=%d, hs=%b, vs=%b, active=%b", $time, x, y, hs, vs, active);
+
+
+    always @(posedge hs or negedge hs) begin
+        if (hs) begin
+            hsync_period = $time - last_hsync_time;
+            last_hsync_time = $time; // Store the current time for the next calculation
+            //$display("At time %t, hsync period is %f", ($time/1000000.0), hsync_period/1000.0);
+        end else begin
+            hsync_pulse_width = $time - hpulse_start_time;
+
+        end
     end
-    
+
+    always @(posedge vs or negedge vs) begin
+        if (vs) begin
+            vsync_period = $time - last_vsync_time;
+            last_vsync_time = $time; // Store the current time for the next calculation
+            $display("At time %t, vsync period is %f", ($time/1000000.0), vsync_period/1000000.0);
+        end else begin
+            vsync_pulse_width = $time - vpulse_start_time;
+        end
+    end
+
 endmodule

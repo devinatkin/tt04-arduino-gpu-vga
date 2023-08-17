@@ -15,13 +15,13 @@ module vga_timing_gen (
     localparam H_BACK_PORCH = 48;
     localparam H_ACTIVE = 640;
     localparam H_FRONT_PORCH = 16;
-    localparam [9:0] H_TOTAL = H_SYNC_CYCLES + H_BACK_PORCH + H_ACTIVE + H_FRONT_PORCH;
+    localparam [9:0] H_TOTAL = (H_SYNC_CYCLES + H_BACK_PORCH + H_ACTIVE + H_FRONT_PORCH)-1;
 
     localparam [9:0] V_SYNC_CYCLES = 2;
     localparam V_BACK_PORCH = 33;
     localparam V_ACTIVE = 480;
     localparam V_FRONT_PORCH = 10;
-    localparam [9:0] V_TOTAL = V_SYNC_CYCLES + V_BACK_PORCH + V_ACTIVE + V_FRONT_PORCH;
+    localparam [9:0] V_TOTAL = (V_SYNC_CYCLES + V_BACK_PORCH + V_ACTIVE + V_FRONT_PORCH) - 1;
 
     // Counters for current position
     wire [9:0] h_count;
@@ -52,7 +52,7 @@ module vga_timing_gen (
 
 
     // Assign sync signals
-    assign hs = hs_pwm;
+    assign hs = ~hs_pwm;
     assign vs = ~vs_pwm;
 
     // Determine if we're in the active video region
