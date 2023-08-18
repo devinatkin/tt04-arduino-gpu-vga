@@ -26,9 +26,9 @@ module tt_um_devinatkin_arduino_vga
     reg [31:0] configuration;
     wire [7:0] received_data;
     wire [11:0] rand_num;
-    wire [35:0] char_memory_out;
+    
     wire character_out;
-    wire [5:0] char_select;
+    
 
     wire pong_pixel;
 
@@ -64,32 +64,14 @@ module tt_um_devinatkin_arduino_vga
         .ycoor(ycoor)
     );
 
-    PixelBlockAddress pixel_address_calc (.x(xcoor), .y(ycoor), .address(address));
-    
-    char_memory_array character_memory_array(
-        .clock(clk),
-        .rst_n(rst_n),
-        .write(1'b0), // configuration[22] will be the write signal, but not until a future version of the project
-        .x(xcoor[1:0]),
-        .y(ycoor[2:0]),
-        .data_in(1'b0), // configuration[23] will be the data in, but not until a future version of the project
-        .data_out(char_memory_out)
-    );
-
-    char_row character_row (
-        .char_in(configuration[20:15]), // character which will be written to that particular point in memory when configuration[21] is high
-        .xcoor(xcoor),
-        .ycoor(ycoor[8:0]),
-        .write(configuration[21]), // character row will be written to when configuration[21] is high
-        .char_out(char_select),
-        .clk(clk),
-        .rst_n(rst_n)
-    );
-
-    mux_36_1 character_mux (
-        .d(char_memory_out),
-        .sel(char_select),
-        .y(character_out)
+    // Instantiate the character_output_mode module
+    character_output_mode my_character_output_mode (
+        .clk           (clk),           // Clock signal
+        .rst_n         (rst_n),         // Reset signal (active low)
+        .xcoor         (xcoor),         // X-coordinate (2 bits)
+        .ycoor         (ycoor),         // Y-coordinate (9 bits)
+        .configuration (configuration), // Configuration (24 bits)
+        .character_out (character_out)  // Character output
     );
 
 
