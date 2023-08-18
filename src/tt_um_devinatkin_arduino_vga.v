@@ -68,8 +68,8 @@ module tt_um_devinatkin_arduino_vga
     pong pong1 (
         .clk(clk),
         .rst_n(rst_n),
-        .btn_up(ui_in[4]),
-        .btn_down(ui_in[5]),
+        .btn_up_raw(ui_in[4]),
+        .btn_down_raw(ui_in[5]),
         .x(xcoor),
         .y(ycoor[8:0]),
         .pixel(pong_pixel)
