@@ -23,6 +23,7 @@ project:
     - char_row.v
     - pong.v
     - character_output_mode.v
+    - vga_controller.v
   top_module:  "tt_um_devinatkin_arduino_vga"
 # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"    # Valid values: 1x1, 1x2, 2x2, 4x2 or 8x2

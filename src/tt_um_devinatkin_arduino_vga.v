@@ -35,33 +35,23 @@ module tt_um_devinatkin_arduino_vga
     reg btn_up;
     reg btn_down;
 
-    // Instantiate vga_timing_gen
-    vga_timing_gen vga_timing(
-    .clk(clk),    // System clock
-    .rst_n(rst_n),  // Active-low reset signal
-    .hs(uo_out[0]),    // Horizontal sync signal
-    .vs(uo_out[1]),    // Vertical sync signal
-    .x(x),    // Current x position (column)
-    .y(y),    // Current y position (row)
-    .active(active)  // Active video signal
-    );
+    wire hs;
+    wire vs;
 
-    // Instantiate rgb_active
-    rgb_active output_control(
-    .active(active),                  // Active video signal
-    .red_pixel(red_pixel),         // red_pixel 2-bit input
-    .green_pixel(green_pixel),       // green_pixel 2-bit input
-    .blue_pixel(blue_pixel),        // blue_pixel 2-bit input
-    .vga_out(uo_out[7:2])           // vga_out 6-bit output
-    );
-
-    VGA_Coord_Calc xy_calc (
-        .x(x),
-        .y(y),
-        .clk(clk),
-        .rst_n(rst_n),
-        .xcoor(xcoor),
-        .ycoor(ycoor)
+    vga_controller vga_ctrl_instance(
+        .clk(clk),                 // System clock
+        .rst_n(rst_n),             // Active-low reset signal
+        .hs(hs),                   // Horizontal sync signal
+        .vs(vs),                   // Vertical sync signal
+        .uo_out(uo_out),           // 6-bit output including sync signals
+        .x(x),                     // Current x position (column)
+        .y(y),                     // Current y position (row)
+        .rand_num(rand_num),       // 6-bit random number input
+        .configuration(configuration), // 32-bit configuration input
+        .character_out(character_out), // Character output signal
+        .pong_pixel(pong_pixel),   // Pong pixel signal
+        .xcoor(xcoor),             // Calculated x coordinate
+        .ycoor(ycoor)              // Calculated y coordinate
     );
 
     // Instantiate the character_output_mode module
@@ -74,16 +64,6 @@ module tt_um_devinatkin_arduino_vga
         .character_out (character_out)  // Character output
     );
 
-
-    // Instantiate the random number generator
-    rand_generator rand_generator_mod (
-        .clk(clk), 
-        .reset_n(rst_n), 
-        .rand_num(rand_num)
-    );
-
-
-
     // Instantiate the pong module
     pong pong1 (
         .clk(clk),
@@ -93,16 +73,6 @@ module tt_um_devinatkin_arduino_vga
         .x(xcoor),
         .y(ycoor[8:0]),
         .pixel(pong_pixel)
-    );
-
-        // Instantiate the pixel_mux module
-    pixel_mux pixel_multiplexer (
-        .input0(rand_num[5:0]), 
-        .input1(configuration[29:24]), 
-        .input2(configuration[29:24] & {6{character_out}}), 
-        .input3(configuration[29:24] & {6{pong_pixel}}), 
-        .select(configuration[31:30]), 
-        .out({red_pixel, green_pixel, blue_pixel})
     );
 
     // Instance of the SPI_Peripheral module
@@ -115,6 +85,13 @@ module tt_um_devinatkin_arduino_vga
         .sclk(ui_in[1]),
         .config_data(configuration),        // Data to be used by the device
         .recieved_data(received_data)        // Data recieved from the device
+    );
+
+    // Instantiate the random number generator
+    rand_generator rand_generator_mod (
+        .clk(clk), 
+        .reset_n(rst_n), 
+        .rand_num(rand_num)
     );
 
     always @(posedge clk) begin
