@@ -12,10 +12,10 @@ module char_row (
     parameter y_start = 100;
     parameter y_end = y_start + 5;
     parameter x_start = 0;
-    parameter x_end = x_start + 32*4;
+    parameter x_end = x_start + 16*4;
     //characters are 8 pixels wide and 10 pixels tall
 
-    reg [5:0] memory_array [0:31]; // Memory array
+    reg [5:0] memory_array [0:15]; // Memory array
     
     reg [4:0] address;               // Address for memory array
     always @(posedge clk) begin
@@ -38,22 +38,6 @@ module char_row (
             memory_array[13] <= 6'b001101;
             memory_array[14] <= 6'b001110;
             memory_array[15] <= 6'b001111;
-            memory_array[16] <= 6'b010000;
-            memory_array[17] <= 6'b010001;
-            memory_array[18] <= 6'b010010;
-            memory_array[19] <= 6'b010011;
-            memory_array[20] <= 6'b010100;
-            memory_array[21] <= 6'b010101;
-            memory_array[22] <= 6'b010110;
-            memory_array[23] <= 6'b010111;
-            memory_array[24] <= 6'b011000;
-            memory_array[25] <= 6'b011001;
-            memory_array[26] <= 6'b011010;
-            memory_array[27] <= 6'b011011;
-            memory_array[28] <= 6'b011100;
-            memory_array[29] <= 6'b011101;
-            memory_array[30] <= 6'b011110;
-            memory_array[31] <= 6'b011111;
 
         end else if (write) begin
             memory_array[address] <= char_in;
