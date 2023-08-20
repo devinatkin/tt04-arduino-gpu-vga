@@ -55,7 +55,7 @@ parameter [575:0] RESET_VALUES = {
     genvar i;
     generate
         for(i = 0; i < 36; i = i + 1) begin: char_memory_instances
-            char_memory char_memory_instance (
+            char_memory #(.RESET_VALUE(RESET_VALUES[((i*16)+15):((i*16))])) char_memory_instance (
                 .clock(clock),
                 .rst_n(rst_n),
                 .write(write),
@@ -64,7 +64,7 @@ parameter [575:0] RESET_VALUES = {
                 .data_in(data_in),
                 .data_out(data_out[i]) // Output from each instance to respective bit in data_out
             );
-            defparam char_memory_instance.RESET_VALUE = RESET_VALUES[((i*16)+15):((i*16))]; // Assigning reset values
+            //defparam char_memory_instance.RESET_VALUE = RESET_VALUES[((i*16)+15):((i*16))]; // Assigning reset values
         end
     endgenerate
 

@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module char_memory (
+module char_memory #(parameter [15:0] RESET_VALUE = 16'b0101010101010101)(
     input wire clock,
     input wire rst_n,
     input wire write,
@@ -9,9 +9,6 @@ module char_memory (
     input wire data_in,
     output reg data_out
 );
-    // Parameter to set the rst_n memory values for each bit
-    // As the first bit of each row will be 0, we can remove those from the initialization
-    parameter [15:0] RESET_VALUE = 16'b0101010101010101;
 
     // 4x4 memory array, 1-bit wide
     reg [15:0] memory;
