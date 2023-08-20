@@ -10,7 +10,7 @@ module char_row (
     input rst_n                // Reset input
 );
     parameter y_start = 100;
-    parameter y_end = y_start + 10;
+    parameter y_end = y_start + 5;
     parameter x_start = 0;
     parameter x_end = x_start + 32*4;
     //characters are 8 pixels wide and 10 pixels tall
