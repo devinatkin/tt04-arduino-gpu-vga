@@ -19,7 +19,7 @@ module pong (
     reg [1:0] ball_dx, ball_dy;
 
     // Paddle position and size
-    reg [8:0] paddle_y;
+    reg [7:0] paddle_y;
     parameter PADDLE_HEIGHT = 40;
 
     // Debounced button signals
