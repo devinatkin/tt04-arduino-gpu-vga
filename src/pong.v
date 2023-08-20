@@ -19,8 +19,8 @@ module pong (
     reg [1:0] ball_dx, ball_dy;
 
     // Paddle position and size
-    reg [7:0] paddle_y;
-    parameter PADDLE_HEIGHT = 40;
+    reg [6:0] paddle_y;
+    parameter PADDLE_HEIGHT = 32;
 
     // Debounced button signals
     wire btn_up; // Debounced button input for up
@@ -69,7 +69,7 @@ module pong (
             end
 
 
-            pixel <= (x >= ball_x - 5 && x <= ball_x + 5 && y >= ball_y - 5 && y <= ball_y + 5) | (x >= 20 && x <= 30 && y >= paddle_y && y <= paddle_y + PADDLE_HEIGHT);
+            pixel <= (x >= ball_x - 4 && x <= ball_x + 4 && y >= ball_y - 4 && y <= ball_y + 4) | (x >= 16 && x <= 32 && y >= paddle_y && y <= paddle_y + PADDLE_HEIGHT);
         end
     end
 
