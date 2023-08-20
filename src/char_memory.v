@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module char_memory #(parameter [15:0] RESET_VALUE = 16'b0101010101010101)(
+module char_memory #(parameter [11:0] RESET_VALUE = 12'b010101010101)(
     input wire clock,
     input wire rst_n,
     input wire write,
