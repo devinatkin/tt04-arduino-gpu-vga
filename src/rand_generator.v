@@ -6,14 +6,14 @@ module rand_generator (
     output reg [11:0] rand_num
 );
 
-    reg [47:0] LFSR;
+    reg [31:0] LFSR; // Reduced to 32-bit LFSR
 
     always @(posedge clk) begin
         if (!reset_n) begin
-            LFSR <= 48'h123456789ABC; // Initial seed
+            LFSR <= 32'h12345678; // Initial seed with reduced size
             rand_num <= 12'b0;
         end else begin
-            LFSR <= {LFSR[46:0], LFSR[47]^LFSR[35]};
+            LFSR <= {LFSR[30:0], LFSR[31]^LFSR[21]^LFSR[1]^LFSR[0]}; // New polynomial
             rand_num <= LFSR[11:0];
         end
     end
