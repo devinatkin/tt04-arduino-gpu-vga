@@ -33,7 +33,7 @@ module SPI_Peripheral
         data_out <= 8'h00;
         bit_counter <= 3'b000;              // and set the data out to 0
         recieved_data <= 8'h00;
-        miso <= 1'bZ;                       // Set the miso to high impedance (So that it doesn't interfere with other devices)
+        miso <= 1'b0;                       // Set the miso to high impedance (So that it doesn't interfere with other devices)
         
       end else begin                        // Otherwise, the slave is selected
 
