@@ -11,7 +11,7 @@ module char_memory #(parameter [15:0] RESET_VALUE = 16'b0101010101010101)(
 );
 
     // 4x4 memory array, 1-bit wide
-    reg [15:0] memory;
+    reg [11:0] memory;
 
     // Intermediary signal to hold the data read from the memory
     reg [3:0] row_data;
@@ -23,11 +23,11 @@ module char_memory #(parameter [15:0] RESET_VALUE = 16'b0101010101010101)(
         end else begin
             // Read operation
             case (y)
-                3'b000: row_data <= {1'b0, memory[5:3]}; // Prefixing zero
+                3'b000: row_data <= {1'b0, memory[2:0]}; // Prefixing zero
                 3'b001: row_data <= {1'b0, memory[5:3]}; // Prefixing zero
                 3'b010: row_data <= {1'b0, memory[8:6]}; // Prefixing zero
                 3'b011: row_data <= {1'b0, memory[11:9]}; // Prefixing zero
-                3'b100: row_data <= {1'b0, memory[14:12]}; // Prefixing zero
+                3'b100: row_data <= {1'b0, memory[11:9]}; // Prefixing zero
             endcase
 
             // Select column with 4-to-1 MUX
