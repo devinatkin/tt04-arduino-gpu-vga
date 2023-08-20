@@ -17,23 +17,13 @@ module tt_um_devinatkin_arduino_vga
     wire [9:0] xcoor;
     wire [9:0] ycoor;
 
-    wire active;
-    wire [10:0] address;
-    wire [1:0] red_pixel;
-    wire [1:0] green_pixel;
-    wire [1:0] blue_pixel;
-
     wire [31:0] configuration;
     wire [7:0] received_data;
     wire [11:0] rand_num;
     
     wire character_out;
     
-
     wire pong_pixel;
-
-    reg btn_up;
-    reg btn_down;
 
     wire hs;
     wire vs;
@@ -103,15 +93,7 @@ module tt_um_devinatkin_arduino_vga
         .rand_num(rand_num)
     );
 
-    // always @(posedge clk) begin
-    //     if (~rst_n) begin
 
-    //     end else begin
-    //         // if (ena) begin
-
-    //         // end
-    //     end
-    // end
 
     // uio_in[0] corresponds to miso, which is the output of the SPI module
     assign uio_oe[0] = 1;
