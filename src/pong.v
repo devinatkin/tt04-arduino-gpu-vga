@@ -15,7 +15,8 @@ module pong (
     parameter SCREEN_HEIGHT = 480;
 
     // Ball speed and direction
-    reg [9:0] ball_x, ball_y;
+    reg [9:0] ball_x
+    reg [8:0] ball_y;
     reg [1:0] ball_dx, ball_dy;
 
     // Paddle position and size
