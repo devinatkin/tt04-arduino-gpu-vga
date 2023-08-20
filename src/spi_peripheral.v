@@ -6,7 +6,7 @@ module SPI_Peripheral
   input wire rst_n,                     // Active-low reset
   input wire ss,                        // Slave Select (active-low)
   input wire mosi,                      // Master-Out-Slave-In
-  output wire miso,                      // Master-In-Slave-Out
+  output reg miso,                      // Master-In-Slave-Out
   input wire sclk,                      // SPI clock
   input wire [31:0] config_data,        // Data to be used by the device
   output reg [7:0] recieved_data        // Data recieved from the device
@@ -17,28 +17,33 @@ module SPI_Peripheral
   reg [7:0] data_out; // 8-bit data register to hold outgoing data
   reg [2:0] bit_counter; // Bit counter to keep track of the SPI bit position
 
-    // Set the MISO line to the next bit in the data register
-  assign miso = data_out[7];
 
   always @(posedge sclk) begin
 
 
     if (~rst_n) begin
       // Synchronous reset
-      data_reg <= 8'h00;
-      data_out <= 8'h00;
-      bit_counter <= 3'b000;
-      recieved_data <= 8'h00;
+      data_reg <= 8'h00;                    // Reset the data register
+      data_out <= 8'h00;                    // Reset the data out register
+      bit_counter <= 3'b000;                // Reset the bit counter
+      recieved_data <= 8'h00;               // Reset the recieved data register
     end else begin
-      // If the slave is not selected, then reset the bit counter
-      if (ss) begin
-        bit_counter <= 3'b000;
-      end else begin
-        // Otherwise, increment the bit counter
-        bit_counter <= bit_counter + 1;
+      
+      if (ss) begin                         // If the slave is not selected, then reset the bit counter
+        data_out <= 8'h00;
+        bit_counter <= 3'b000;              // and set the data out to 0
+        recieved_data <= 8'h00;
+        miso <= 1'bZ;                       // Set the miso to high impedance (So that it doesn't interfere with other devices)
+        
+      end else begin                        // Otherwise, the slave is selected
+
+        miso <= data_out[7];                // Set the miso to the MSB of the data out register
+
+        bit_counter <= bit_counter + 1;     // Increment the bit counter
+
         // Shift the data bit into the data register
-        data_reg <= {data_reg[6:0], mosi};
-        data_out <= {data_out[6:0], 1'b0};
+        data_reg <= {data_reg[6:0], mosi};  // Shift the data bit into the data register
+        data_out <= {data_out[6:0], 1'b0};  // Shift the data bit into the data out register
           
 
         // If the bit counter is 8, then the data transfer is complete
