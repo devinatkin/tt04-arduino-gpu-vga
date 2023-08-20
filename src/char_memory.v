@@ -41,15 +41,15 @@ module char_memory #(parameter [15:0] RESET_VALUE = 16'b0101010101010101)(
     end
 
     // Write operation (only bits 1 to 3 are writable)
-    always @(posedge clock) begin
-        if (write && x > 0) begin
-            case (y)
-                3'b000: memory[x-1] <= data_in;
-                3'b001: memory[3+x] <= data_in;
-                3'b010: memory[7+x] <= data_in;
-                3'b011: memory[11+x] <= data_in;
-                3'b100: memory[15+x] <= data_in;
-            endcase
-        end
-    end
+    // always @(posedge clock) begin
+    //     if (write && x > 0) begin
+    //         case (y)
+    //         3'b000: data_out <= (x == 0) ? 1'b0 : memory[3*(x-1)];
+    //         3'b001: data_out <= (x == 0) ? 1'b0 : memory[3*(x-1)+1];
+    //         3'b010: data_out <= (x == 0) ? 1'b0 : memory[3*(x-1)+2];
+    //         3'b011: data_out <= (x == 0) ? 1'b0 : memory[3*(x-1)+3];
+    //         3'b100: data_out <= (x == 0) ? 1'b0 : memory[3*(x-1)+4];
+    //         endcase
+    //     end
+    // end
 endmodule
