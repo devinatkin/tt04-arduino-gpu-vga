@@ -64,7 +64,7 @@ module pong (
                 ball_dy <= -ball_dy;
             end else if (ball_y == SCREEN_HEIGHT - 1) begin // bottom wall collision
                 ball_dy <= -ball_dy;
-            end else if (ball_x == 20 && ball_y >= paddle_y && ball_y <= paddle_y + PADDLE_HEIGHT) begin // paddle collision
+            end else if (ball_x == 16 && ball_y >= paddle_y && ball_y <= paddle_y + PADDLE_HEIGHT) begin // paddle collision
                 ball_dx <= -ball_dx;
             end
 
