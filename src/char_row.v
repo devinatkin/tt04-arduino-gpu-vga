@@ -17,7 +17,7 @@ module char_row (
 
     reg [5:0] memory_array [0:15]; // Memory array
     
-    reg [4:0] address;               // Address for memory array
+    reg [3:0] address;               // Address for memory array
     always @(posedge clk) begin
         if(~rst_n) begin
             char_out <= 0;
