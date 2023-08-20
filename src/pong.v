@@ -16,7 +16,7 @@ module pong (
 
     // Ball speed and direction
     reg [9:0] ball_x, ball_y;
-    reg [2:0] ball_dx, ball_dy;
+    reg [1:0] ball_dx, ball_dy;
 
     // Paddle position and size
     reg [8:0] paddle_y;
