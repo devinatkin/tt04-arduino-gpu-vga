@@ -10,52 +10,49 @@ module char_memory (
     output reg data_out
 );
     // Parameter to set the rst_n memory values for each bit
-    parameter [19:0] RESET_VALUE = 20'b10100101101010100101;
+    // As the first bit of each row will be 0, we can remove those from the initialization
+    parameter [15:0] RESET_VALUE = 16'b0101010101010101;
 
-
-    // 4x5 memory array, 1-bit wide
-    reg [19:0] memory;
+    // 4x4 memory array, 1-bit wide
+    reg [15:0] memory;
 
     // Intermediary signal to hold the data read from the memory
-    wire [3:0] row_data;
-    
-    // Instantiate the 5_1 mux to select the row
-    mux_5_1 row_select (
-        .sel(y),
-        .in0(memory[3:0]),
-        .in1(memory[7:4]),
-        .in2(memory[11:8]),
-        .in3(memory[15:12]),
-        .in4(memory[19:16]),
-        .out(row_data)
-    );
-    // Instantiate the 4_1 mux to select the column
-    mux_4_1 col_select (
-        .sel(x),
-        .in0(row_data[0]),
-        .in1(row_data[1]),
-        .in2(row_data[2]),
-        .in3(row_data[3]),
-        .out(data_out)
-    );
+    reg [3:0] row_data;
 
-    // Memory Write Operation
+    // Read logic
     always @(posedge clock) begin
         if (!rst_n) begin
-            integer i;
-            for (i = 0; i < 20; i = i + 1) begin
-                memory[i] <= RESET_VALUE[i]; // Extract 1-bit from the reset value
-            end
-        end else if (write) begin
+            memory <= RESET_VALUE;
+        end else begin
+            // Read operation
             case (y)
-                3'b000: memory[0+x] <= data_in;
-                3'b001: memory[4+x] <= data_in;
-                3'b010: memory[8+x] <= data_in;
-                3'b011: memory[12+x] <= data_in;
-                3'b100: memory[16+x] <= data_in;
-                default: ; // Handle other cases if needed
+                3'b000: row_data <= {1'b0, memory[2:0]}; // Prefixing zero
+                3'b001: row_data <= {1'b0, memory[5:3]}; // Prefixing zero
+                3'b010: row_data <= {1'b0, memory[8:6]}; // Prefixing zero
+                3'b011: row_data <= {1'b0, memory[11:9]}; // Prefixing zero
+                3'b100: row_data <= {1'b0, memory[14:12]}; // Prefixing zero
+            endcase
+
+            // Select column with 4-to-1 MUX
+            case (x)
+                2'b00: data_out <= row_data[0];
+                2'b01: data_out <= row_data[1];
+                2'b10: data_out <= row_data[2];
+                2'b11: data_out <= row_data[3];
             endcase
         end
     end
 
+    // Write operation (only bits 1 to 3 are writable)
+    always @(posedge clock) begin
+        if (write && x > 0) begin
+            case (y)
+                3'b000: memory[x-1] <= data_in;
+                3'b001: memory[3+x] <= data_in;
+                3'b010: memory[7+x] <= data_in;
+                3'b011: memory[11+x] <= data_in;
+                3'b100: memory[15+x] <= data_in;
+            endcase
+        end
+    end
 endmodule
