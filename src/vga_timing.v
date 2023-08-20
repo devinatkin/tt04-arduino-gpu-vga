@@ -3,6 +3,7 @@
 module vga_timing_gen (
     input wire clk,    // System clock
     input wire rst_n,  // Active-low reset signal
+    input wire enable, // Active-high enable signal
     output wire hs,    // Horizontal sync signal
     output wire vs,    // Vertical sync signal
     output wire [9:0] x,    // Current x position (column)
@@ -33,6 +34,7 @@ module vga_timing_gen (
     hs_pwm_gen(
         .clk(clk),
         .rst_n(rst_n),
+        .enable(enable),
         .duty(H_SYNC_CYCLES),
         .max_value(H_TOTAL),
         .pwm_out(hs_pwm),
@@ -43,6 +45,7 @@ module vga_timing_gen (
     vs_pwm_gen(
         .clk(hs_pwm),   // VSync PWM generator is clocked by HSync
         .rst_n(rst_n),
+        .enable(enable),
         .duty(V_SYNC_CYCLES),
         .max_value(V_TOTAL),
         .pwm_out(vs_pwm),

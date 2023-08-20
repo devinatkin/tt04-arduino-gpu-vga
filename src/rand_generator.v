@@ -3,6 +3,7 @@
 module rand_generator (
     input wire clk,
     input wire reset_n,
+    input wire enable,      // Active-high enable signal
     output reg [11:0] rand_num
 );
 
@@ -12,7 +13,7 @@ module rand_generator (
         if (!reset_n) begin
             LFSR <= 24'h123456; // Initial seed with reduced size
             rand_num <= 12'b0;
-        end else begin
+        end else if (enable) begin // Added enable condition here
             LFSR <= {LFSR[22:0], LFSR[23]^LFSR[22]^LFSR[21]^LFSR[16]}; // New polynomial
             rand_num <= LFSR[11:0];
         end

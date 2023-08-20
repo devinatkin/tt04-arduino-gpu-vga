@@ -4,13 +4,15 @@ module SPI_Peripheral
 (
   input wire clk,                       // System clock
   input wire rst_n,                     // Active-low reset
+  input wire enable,                    // Active-high enable signal
   input wire ss,                        // Slave Select (active-low)
   input wire mosi,                      // Master-Out-Slave-In
   output reg miso,                      // Master-In-Slave-Out
   input wire sclk,                      // SPI clock
   input wire [31:0] config_data,        // Data to be used by the device
-  output reg [7:0] recieved_data        // Data recieved from the device
+  output reg [7:0] recieved_data        // Data received from the device
 );
+
 
 
   reg [7:0] data_reg; // 8-bit data register to hold incoming data
@@ -27,7 +29,7 @@ module SPI_Peripheral
       data_out <= 8'h00;                    // Reset the data out register
       bit_counter <= 3'b000;                // Reset the bit counter
       recieved_data <= 8'h00;               // Reset the recieved data register
-    end else begin
+    end else if (enable) begin
       
       if (ss) begin                         // If the slave is not selected, then reset the bit counter
         data_out <= 8'h00;

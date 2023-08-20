@@ -1,8 +1,9 @@
 `timescale 1ns/1ps
 
 module config_manager(
-    input wire clk,       // Clock input
-    input wire rst_n,     // Active-low reset input
+    input wire clk,        // Clock input
+    input wire rst_n,      // Active-low reset input
+    input wire enable,     // Active high enable signal
     input wire [7:0] data_in,
     output reg [31:0] config_out
 );
@@ -18,7 +19,7 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         // If reset is active (low), set config_out to default configuration
         config_out <= 32'b1011_1011_1111_1100_0000_0000_0000_0000;
-    end else if (data_in[7] == 0) begin
+    end else if (enable && data_in[7] == 0) begin
         // If MSB of data_in is 0 and reset is not active
         write_address <= data_in[6:4];
         data_to_write <= data_in[3:0];

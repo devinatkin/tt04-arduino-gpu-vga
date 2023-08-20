@@ -3,6 +3,7 @@
 module vga_controller(
     input wire clk,
     input wire rst_n,
+    input wire enable,
     output wire hs,
     output wire vs,
     output wire [7:0] uo_out,
@@ -25,6 +26,7 @@ module vga_controller(
     vga_timing_gen vga_timing(
         .clk(clk),
         .rst_n(rst_n),
+        .enable(enable),
         .hs(uo_out[0]),
         .vs(uo_out[1]),
         .x(x),

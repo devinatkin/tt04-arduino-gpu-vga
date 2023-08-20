@@ -3,13 +3,13 @@
 module pong (
     input clk,
     input rst_n,
-    input btn_up_raw, // Raw button input for up
-    input btn_down_raw, // Raw button input for down
+    input enable,          // Active high enable signal
+    input btn_up_raw,      // Raw button input for up
+    input btn_down_raw,    // Raw button input for down
     input [9:0] x,
     input [8:0] y,
     output reg pixel
 );
-
     // Screen size
     parameter SCREEN_WIDTH = 640;
     parameter SCREEN_HEIGHT = 480;
@@ -49,7 +49,7 @@ module pong (
             ball_dx <= 2'b01; // arbitrary initial direction
             ball_dy <= 2'b01;
             paddle_y <= (SCREEN_HEIGHT - PADDLE_HEIGHT) / 2;
-        end else begin
+        end else if (enable) begin
             ball_x <= ball_x + ball_dx;
             ball_y <= ball_y + ball_dy;
             // ball_dx <= ball_dx;

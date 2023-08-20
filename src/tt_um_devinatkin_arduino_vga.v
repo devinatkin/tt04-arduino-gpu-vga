@@ -31,6 +31,7 @@ module tt_um_devinatkin_arduino_vga
     vga_controller vga_ctrl_instance(
         .clk(clk),                 // System clock
         .rst_n(rst_n),             // Active-low reset signal
+        .enable(ena),              // Active-high enable signal
         .hs(hs),                   // Horizontal sync signal
         .vs(vs),                   // Vertical sync signal
         .uo_out(uo_out),           // 6-bit output including sync signals
@@ -58,6 +59,7 @@ module tt_um_devinatkin_arduino_vga
     pong pong1 (
         .clk(clk),
         .rst_n(rst_n),
+        .enable(ena),
         .btn_up_raw(ui_in[4]),
         .btn_down_raw(ui_in[5]),
         .x(xcoor),
@@ -69,6 +71,7 @@ module tt_um_devinatkin_arduino_vga
     SPI_Peripheral peripher_module (
         .clk(clk),
         .rst_n(rst_n),
+        .enable(ena),
         .ss(ui_in[2]),
         .mosi(ui_in[0]),
         .miso(uio_out[0]),
@@ -81,6 +84,7 @@ module tt_um_devinatkin_arduino_vga
     config_manager config_m (
         .clk(clk),
         .rst_n(rst_n),
+        .enable(ena),
         .data_in(received_data),
         .config_out(configuration)
     );
@@ -89,7 +93,8 @@ module tt_um_devinatkin_arduino_vga
     // Instantiate the random number generator
     rand_generator rand_generator_mod (
         .clk(clk), 
-        .reset_n(rst_n), 
+        .reset_n(rst_n),
+        .enable(ena), 
         .rand_num(rand_num)
     );
 
