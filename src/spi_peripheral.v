@@ -48,17 +48,19 @@ module SPI_Peripheral
 
         // If the bit counter is 8, then the data transfer is complete
         if (bit_counter == 3'b111) begin
+
           // Set the recieved data register to the data register
-          recieved_data <= {data_reg[6:0], mosi};
-          data_reg <= 8'h00;
+          recieved_data <= {data_reg[7:0]}; // Set the recieved data register to the data register
+          data_reg <= 8'h00;                // Reset the data register
+
           // Set the Data Out register to the selected value
-          if ({data_reg[6:0], mosi} == 8'b10001111) begin // If the data is 0x8F (10001111 in binary, the test data) then send 0xAA (10101010 in binary, the test response)
+          if ({data_reg[7:0]} == 8'b10001111) begin // If the data is 0x8F (10001111 in binary, the test data) then send 0xAA (10101010 in binary, the test response)
             //$display("Data is 0x8F, sending 0xAA");
             data_out <= 8'b10101010;
           end else begin // Otherwise, set data_out based on the data register
             // If data_reg[7] is 1, then set the data out based on data_reg[6:5]
             // If data_reg[7] is 0, then set the data out to 0
-            if (mosi == 1) begin
+            if (data_reg[7] == 1) begin
               case(data_reg[5:4])
                 2'b00: data_out <= config_data[7:0];
                 2'b01: data_out <= config_data[15:8];
@@ -67,7 +69,7 @@ module SPI_Peripheral
                 default data_out <= 8'b00000000;
               endcase
             end else begin
-              data_out <= 8'b00000000;
+              data_out <= 8'h00;
             end
           end
             // Otherwise, shift the data out register

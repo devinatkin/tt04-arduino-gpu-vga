@@ -23,7 +23,7 @@ module tt_um_devinatkin_arduino_vga
     wire [1:0] green_pixel;
     wire [1:0] blue_pixel;
 
-    reg [31:0] configuration;
+    wire [31:0] configuration;
     wire [7:0] received_data;
     wire [11:0] rand_num;
     
@@ -87,6 +87,15 @@ module tt_um_devinatkin_arduino_vga
         .recieved_data(received_data)        // Data recieved from the device
     );
 
+    // Instantiate the config_manager
+    config_manager config_m (
+        .clk(clk),
+        .rst_n(rst_n),
+        .data_in(received_data),
+        .config_out(configuration)
+    );
+
+
     // Instantiate the random number generator
     rand_generator rand_generator_mod (
         .clk(clk), 
@@ -94,15 +103,15 @@ module tt_um_devinatkin_arduino_vga
         .rand_num(rand_num)
     );
 
-    always @(posedge clk) begin
-        if (~rst_n) begin
-            configuration <= 32'b1011_1011_1111_1100_0000_0000_0000_0000;
-        end else begin
-            if (ena) begin
-                configuration <= received_data;
-            end
-        end
-    end
+    // always @(posedge clk) begin
+    //     if (~rst_n) begin
+
+    //     end else begin
+    //         // if (ena) begin
+
+    //         // end
+    //     end
+    // end
 
     // uio_in[0] corresponds to miso, which is the output of the SPI module
     assign uio_oe[0] = 1;
