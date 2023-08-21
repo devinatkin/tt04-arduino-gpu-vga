@@ -7,22 +7,22 @@ module debounce(
     output reg button_out  // Debounced button output
 );
 
-    parameter DEBOUNCE_TIME = 5'd31; // Define debounce time (must be within 8-bit range)
+    parameter DEBOUNCE_TIME = 4'b1111; // Define debounce time (must be within 8-bit range)
 
-    reg [4:0] counter; // 5-bit counter to measure the debounce time
+    reg [3:0] counter; // 5-bit counter to measure the debounce time
 
     always @(posedge clk) begin
         if (!rst_n) begin
             button_out <= 1'b0; // Reset debounced button output
-            counter <= 5'd0;    // Reset counter
+            counter <= 4'd0;    // Reset counter
         end else begin
             if (button_in == button_out) begin
-                counter <= 5'd0; // If button state matches debounced state, reset the counter
+                counter <= 4'd0; // If button state matches debounced state, reset the counter
             end else begin
                 if (counter == DEBOUNCE_TIME - 1'd1) begin
                     button_out <= button_in; // If debounce time has passed, update the debounced output
                 end else begin
-                    counter <= counter + 5'd1; // Otherwise, increment the counter
+                    counter <= counter + 4'd1; // Otherwise, increment the counter
                 end
             end
         end
