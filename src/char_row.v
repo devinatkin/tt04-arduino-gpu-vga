@@ -15,7 +15,7 @@ module char_row (
     parameter x_end = x_start + 16*4;
     //characters are 8 pixels wide and 10 pixels tall
 
-    reg [5:0] memory_array [0:15]; // Memory array
+    reg [5:0] memory_array [0:14]; // Memory array
     
     reg [3:0] address;               // Address for memory array
     always @(posedge clk) begin
@@ -37,7 +37,6 @@ module char_row (
             memory_array[12] <= 6'b001100;
             memory_array[13] <= 6'b001101;
             memory_array[14] <= 6'b001110;
-            memory_array[15] <= 6'b001111;
 
         end else if (write) begin
             memory_array[address] <= char_in;
